@@ -1,0 +1,10 @@
+html {
+    background-color: #fafafa;
+}
+
+#canvas {
+    background-color: white;
+    border: 1px solid;
+    margin-top: 150px;
+    margin-left: 350px;
+}
