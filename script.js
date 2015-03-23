@@ -1,11 +1,11 @@
 /*jslint eqeq: true, sloppy: true*/
-/*global createjs, keyPress, keyRelease,persoKen,persoRyu,tick*/
+/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick*/
 
 var stage,
-    imgKen = new Image(),
-    ken,
-    imgRyu = new Image(),
-    ryu,
+    imgPerso1 = new Image(),
+    perso1,
+    imgPerso2 = new Image(),
+    perso2,
     clavier = {
         gauche: 0,
         droite: 0
@@ -17,12 +17,12 @@ window.onkeyup = keyRelease;
 function keyPress(e) {
     if (e.keyCode == 37) {
         clavier.gauche = 1;
-        ken.gotoAndPlay("walkKen");
+        perso1.gotoAndPlay("walkPerso1");
 
     }
     if (e.keyCode == 39) {
         clavier.droite = 1;
-        ken.gotoAndPlay("walkKen");
+        perso1.gotoAndPlay("walkPerso1");
 
     }
 }
@@ -30,22 +30,22 @@ function keyPress(e) {
 function keyRelease(e) {
     if (e.keyCode == 37) {
         clavier.gauche = 0;
-        ken.gotoAndPlay("standKen");
+        perso1.gotoAndPlay("standPerso1");
     }
     if (e.keyCode == 39) {
         clavier.droite = 0;
-        ken.gotoAndPlay("standKen");
+        perso1.gotoAndPlay("standPerso1");
     }
 }
 
 function init() {
     stage = new createjs.Stage('canvas');
 
-    imgKen.src = "img/ken.png";
-    imgKen.onload = persoKen();
+    imgPerso1.src = "img/test.png";
+    imgPerso1.onload = creationPerso1();
 
-    imgRyu.src = "img/ryu.gif";
-    imgRyu.onload = persoRyu();
+    imgPerso2.src = "img/ryu.png";
+    imgPerso2.onload = creationPerso2();
 
     createjs.Ticker.useRAF = true;
     createjs.Ticker.setFPS(40);
@@ -53,60 +53,62 @@ function init() {
     createjs.Ticker.addEventListener("tick", tick);
 }
 
-function persoKen() {
+function creationPerso1() {
     var ss = new createjs.SpriteSheet({
-        images: [imgKen],
+        images: [imgPerso1],
         frames: {
-            width: 70,
-            height: 80,
-            regX: 35,
-            regY: 40
+            width: 98,
+            height: 125.9,
+            regX: 49,
+            regY: 65.95
         },
         animations: {
-            standKen: [7, 10, true, 0.2],
-            walkKen: [21, 25, true, 0.2]
+            standPerso1: [0, 3, true, 0.1],
+            walkPerso1: [4, 7, true, 0.2]
         }
     });
 
-    ken = new createjs.Sprite(ss, "standKen");
-    ken.x = stage.canvas.width / 2 - 100;
-    ken.y = stage.canvas.height / 2;
+    perso1 = new createjs.Sprite(ss, "standPerso1");
+    perso1.scaleX = 1.15;
+    perso1.scaleY = 1.15;
+    perso1.x = stage.canvas.width / 2 - 100;
+    perso1.y = stage.canvas.height / 2;
 
-    stage.addChild(ken);
+    stage.addChild(perso1);
     stage.update();
 }
 
 
-function persoRyu() {
+function creationPerso2() {
     var ss = new createjs.SpriteSheet({
-        images: [imgRyu],
+        images: [imgPerso2],
         frames: {
-            width: 58,
-            height: 93.04,
-            regX: 29,
-            regY: 46.52
+            width: 59,
+            height: 105,
+            regX: 30.91,
+            regY: 52.5
         },
         animations: {
-            standRyu: [6, 9, true, 0.2],
-            walkRyu: [16, 20, true, 0.2]
+            standPerso2: [6, 9, true, 0.2],
+            walkPerso2: [16, 20, true, 0.2]
         }
     });
 
-    ryu = new createjs.Sprite(ss, "standRyu");
-    ryu.x = stage.canvas.width / 2 + 100;
-    ryu.y = stage.canvas.height / 2;
+    perso2 = new createjs.Sprite(ss, "standPerso2");
+    perso2.x = stage.canvas.width / 2 + 100;
+    perso2.y = stage.canvas.height / 2;
 
-    ryu.gotoAndPlay("stand");
-    stage.addChild(ryu);
+    perso2.gotoAndPlay("standPerso2");
+    stage.addChild(perso2);
     stage.update();
 }
 
 function deplacement() {
     if (clavier.gauche == 1) {
-        ken.x = ken.x - 3;
+        perso1.x = perso1.x - 3;
     }
     if (clavier.droite == 1) {
-        ken.x = ken.x + 3;
+        perso1.x = perso1.x + 3;
     }
 }
 
