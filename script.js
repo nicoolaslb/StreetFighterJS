@@ -41,10 +41,10 @@ function keyRelease(e) {
 function init() {
     stage = new createjs.Stage('canvas');
 
-    imgPerso1.src = "img/test.png";
+    imgPerso1.src = "img/goku.png";
     imgPerso1.onload = creationPerso1();
 
-    imgPerso2.src = "img/ryu.png";
+    imgPerso2.src = "img/naruto.png";
     imgPerso2.onload = creationPerso2();
 
     createjs.Ticker.useRAF = true;
@@ -83,20 +83,22 @@ function creationPerso2() {
     var ss = new createjs.SpriteSheet({
         images: [imgPerso2],
         frames: {
-            width: 59,
-            height: 105,
-            regX: 30.91,
-            regY: 52.5
+            width: 100,
+            height: 78.28,
+            regX: 50,
+            regY: 39.14
         },
         animations: {
-            standPerso2: [6, 9, true, 0.2],
-            walkPerso2: [16, 20, true, 0.2]
+            standPerso2: [0, 3, true, 0.1],
+            walkPerso2: [4, 11, true, 0.2]
         }
     });
 
     perso2 = new createjs.Sprite(ss, "standPerso2");
     perso2.x = stage.canvas.width / 2 + 100;
-    perso2.y = stage.canvas.height / 2;
+    perso2.y = stage.canvas.height / 2 + 10;
+    perso2.scaleX = 1.2;
+    perso2.scaleY = 1.2;
 
     perso2.gotoAndPlay("standPerso2");
     stage.addChild(perso2);
