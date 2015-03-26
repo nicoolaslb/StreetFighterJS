@@ -1,5 +1,5 @@
 /*jslint eqeq: true, sloppy: true*/
-/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick*/
+/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,*/
 
 var stage,
     imgPerso1 = new Image(),
@@ -11,7 +11,8 @@ var stage,
         droite: 0,
         haut: 0,
         bas: 0
-    };
+    },
+    bitmap;
 
 window.onkeydown = keyPress;
 window.onkeyup = keyRelease;
@@ -84,6 +85,16 @@ function keyRelease(e) {
 function init() {
     stage = new createjs.Stage('canvas');
 
+    bitmap = new createjs.Bitmap("img/arena.png");
+    bitmap.regX = 328.5;
+    bitmap.regY = 112;
+    bitmap.scaleX = 1.8;
+    bitmap.scaleY = 1.8;
+    bitmap.x = stage.canvas.width / 2;
+    bitmap.y = stage.canvas.height / 2;
+    stage.addChild(bitmap);
+    stage.update();
+
     imgPerso1.src = "img/goku.png";
     imgPerso1.onload = creationPerso1();
 
@@ -95,6 +106,7 @@ function init() {
     createjs.Ticker.addEventListener("tick", stage);
     createjs.Ticker.addEventListener("tick", tick);
 }
+
 
 function creationPerso1() {
     var ss = new createjs.SpriteSheet({
@@ -115,8 +127,8 @@ function creationPerso1() {
     perso1 = new createjs.Sprite(ss, "standPerso1");
     perso1.scaleX = 1.15;
     perso1.scaleY = 1.15;
-    perso1.x = stage.canvas.width / 2 - 100;
-    perso1.y = stage.canvas.height / 2;
+    perso1.x = stage.canvas.width / 2 - 200;
+    perso1.y = stage.canvas.height - 100;
 
     stage.addChild(perso1);
     stage.update();
@@ -139,8 +151,8 @@ function creationPerso2() {
     });
 
     perso2 = new createjs.Sprite(ss, "standPerso2");
-    perso2.x = stage.canvas.width / 2 + 100;
-    perso2.y = stage.canvas.height / 2 + 10;
+    perso2.x = stage.canvas.width / 2 + 200;
+    perso2.y = stage.canvas.height / 2 + 110;
     perso2.scaleX = 1.2;
     perso2.scaleY = 1.2;
 
