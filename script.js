@@ -8,33 +8,76 @@ var stage,
     perso2,
     clavier = {
         gauche: 0,
-        droite: 0
+        droite: 0,
+        haut: 0,
+        bas: 0
     };
 
 window.onkeydown = keyPress;
 window.onkeyup = keyRelease;
 
 function keyPress(e) {
-    if (e.keyCode == 37) {
+
+    // PERSO 1
+    if (e.keyCode == 81) {
         clavier.gauche = 1;
         perso1.gotoAndPlay("walkPerso1");
-
     }
-    if (e.keyCode == 39) {
+    if (e.keyCode == 68) {
         clavier.droite = 1;
         perso1.gotoAndPlay("walkPerso1");
 
     }
+    if (e.keyCode == 90) {
+        clavier.haut = 1;
+        perso1.gotoAndPlay("jumpPerso1");
+    }
+    // PERSO 2
+    if (e.keyCode == 37) {
+        clavier.gauche = 1;
+        perso2.gotoAndPlay("walkPerso2");
+
+    }
+    if (e.keyCode == 39) {
+        clavier.droite = 1;
+        perso2.gotoAndPlay("walkPerso2");
+
+    }
+    if (e.keyCode == 38) {
+        clavier.haut = 1;
+        perso2.gotoAndPlay("jumpPerso2");
+    }
 }
 
 function keyRelease(e) {
-    if (e.keyCode == 37) {
+    // PERSO 1
+    if (e.keyCode == 81) {
         clavier.gauche = 0;
         perso1.gotoAndPlay("standPerso1");
     }
-    if (e.keyCode == 39) {
+    if (e.keyCode == 68) {
         clavier.droite = 0;
         perso1.gotoAndPlay("standPerso1");
+
+    }
+    if (e.keyCode == 90) {
+        clavier.haut = 0;
+        perso1.gotoAndPlay("standPerso1");
+    }
+    // PERSO 2
+    if (e.keyCode == 37) {
+        clavier.gauche = 0;
+        perso2.gotoAndPlay("standPerso2");
+
+    }
+    if (e.keyCode == 39) {
+        clavier.droite = 0;
+        perso2.gotoAndPlay("standPerso2");
+
+    }
+    if (e.keyCode == 38) {
+        clavier.haut = 0;
+        perso2.gotoAndPlay("standPerso2");
     }
 }
 
@@ -64,7 +107,8 @@ function creationPerso1() {
         },
         animations: {
             standPerso1: [0, 3, true, 0.1],
-            walkPerso1: [4, 7, true, 0.2]
+            walkPerso1: [4, 7, true, 0.2],
+            jumpPerso1: [13, 16, false, 0.1]
         }
     });
 
