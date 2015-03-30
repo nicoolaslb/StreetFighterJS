@@ -10,6 +10,7 @@ var stage,
         gauche: 0,
         droite: 0,
         U: 0,
+        I: 0,
         bas: 0
     },
     clavier2 = {
@@ -39,6 +40,10 @@ function keyPress(e) {
         clavier1.U = 1;
         perso1.gotoAndPlay("punch1Perso1");
     }
+    if (e.keyCode == 73) {
+        clavier1.I = 1;
+        perso1.gotoAndPlay("kick1Perso1");
+    }
     // PERSO 2
     if (e.keyCode == 37) {
         clavier2.gauche = 1;
@@ -54,6 +59,7 @@ function keyPress(e) {
         clavier2.haut = 1;
         perso2.gotoAndPlay("jumpPerso2");
     }
+
 }
 
 function keyRelease(e) {
@@ -69,6 +75,10 @@ function keyRelease(e) {
     }
     if (e.keyCode == 85) {
         clavier1.U = 0;
+        perso1.gotoAndPlay("standPerso1");
+    }
+    if (e.keyCode == 73) {
+        clavier1.I = 0;
         perso1.gotoAndPlay("standPerso1");
     }
     // PERSO 2
@@ -133,10 +143,10 @@ function creationPerso1() {
     });
 
     perso1 = new createjs.Sprite(ss, "standPerso1");
-    perso1.scaleX = 1.15;
-    perso1.scaleY = 1.15;
+    perso1.scaleX = 1.2;
+    perso1.scaleY = 1.2;
     perso1.x = stage.canvas.width / 2 - 200;
-    perso1.y = stage.canvas.height - 100;
+    perso1.y = stage.canvas.height - 75;
 
     stage.addChild(perso1);
     stage.update();
