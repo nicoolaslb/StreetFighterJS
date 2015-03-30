@@ -1,12 +1,18 @@
 /*jslint eqeq: true, sloppy: true*/
-/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,*/
+/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,walkRightPerso1*/
 
 var stage,
     imgPerso1 = new Image(),
     perso1,
     imgPerso2 = new Image(),
     perso2,
-    clavier = {
+    clavier1 = {
+        gauche: 0,
+        droite: 0,
+        U: 0,
+        bas: 0
+    },
+    clavier2 = {
         gauche: 0,
         droite: 0,
         haut: 0,
@@ -21,31 +27,31 @@ function keyPress(e) {
 
     // PERSO 1
     if (e.keyCode == 81) {
-        clavier.gauche = 1;
-        perso1.gotoAndPlay("walkPerso1");
+        clavier1.gauche = 1;
+        perso1.gotoAndPlay("walkLeftPerso1");
     }
     if (e.keyCode == 68) {
-        clavier.droite = 1;
-        perso1.gotoAndPlay("walkPerso1");
+        clavier1.droite = 1;
+        perso1.gotoAndPlay("walkRightPerso1");
 
     }
-    if (e.keyCode == 90) {
-        clavier.haut = 1;
-        perso1.gotoAndPlay("jumpPerso1");
+    if (e.keyCode == 85) {
+        clavier1.U = 1;
+        perso1.gotoAndPlay("punch1Perso1");
     }
     // PERSO 2
     if (e.keyCode == 37) {
-        clavier.gauche = 1;
+        clavier2.gauche = 1;
         perso2.gotoAndPlay("walkPerso2");
 
     }
     if (e.keyCode == 39) {
-        clavier.droite = 1;
+        clavier2.droite = 1;
         perso2.gotoAndPlay("walkPerso2");
 
     }
     if (e.keyCode == 38) {
-        clavier.haut = 1;
+        clavier2.haut = 1;
         perso2.gotoAndPlay("jumpPerso2");
     }
 }
@@ -53,31 +59,31 @@ function keyPress(e) {
 function keyRelease(e) {
     // PERSO 1
     if (e.keyCode == 81) {
-        clavier.gauche = 0;
+        clavier1.gauche = 0;
         perso1.gotoAndPlay("standPerso1");
     }
     if (e.keyCode == 68) {
-        clavier.droite = 0;
+        clavier1.droite = 0;
         perso1.gotoAndPlay("standPerso1");
 
     }
-    if (e.keyCode == 90) {
-        clavier.haut = 0;
+    if (e.keyCode == 85) {
+        clavier1.U = 0;
         perso1.gotoAndPlay("standPerso1");
     }
     // PERSO 2
     if (e.keyCode == 37) {
-        clavier.gauche = 0;
+        clavier2.gauche = 0;
         perso2.gotoAndPlay("standPerso2");
 
     }
     if (e.keyCode == 39) {
-        clavier.droite = 0;
+        clavier2.droite = 0;
         perso2.gotoAndPlay("standPerso2");
 
     }
     if (e.keyCode == 38) {
-        clavier.haut = 0;
+        clavier2.haut = 0;
         perso2.gotoAndPlay("standPerso2");
     }
 }
@@ -95,10 +101,10 @@ function init() {
     stage.addChild(bitmap);
     stage.update();
 
-    imgPerso1.src = "img/goku.png";
+    imgPerso1.src = "img/ken.png";
     imgPerso1.onload = creationPerso1();
 
-    imgPerso2.src = "img/naruto.png";
+    imgPerso2.src = "img/yugi.png";
     imgPerso2.onload = creationPerso2();
 
     createjs.Ticker.useRAF = true;
@@ -112,15 +118,16 @@ function creationPerso1() {
     var ss = new createjs.SpriteSheet({
         images: [imgPerso1],
         frames: {
-            width: 98,
-            height: 125.9,
-            regX: 49,
-            regY: 65.95
+            width: 70,
+            height: 140,
+            regX: 35,
+            regY: 70
         },
         animations: {
             standPerso1: [0, 3, true, 0.1],
-            walkPerso1: [4, 7, true, 0.2],
-            jumpPerso1: [13, 16, false, 0.1]
+            walkRightPerso1: [4, 8, true, 0.1],
+            walkLeftPerso1: [4, 8, true, 0.1],
+            punch1Perso1: [10, 12, false, 0.15]
         }
     });
 
@@ -139,21 +146,21 @@ function creationPerso2() {
     var ss = new createjs.SpriteSheet({
         images: [imgPerso2],
         frames: {
-            width: 100,
-            height: 78.28,
-            regX: 50,
-            regY: 39.14
+            width: 79,
+            height: 72.75,
+            regX: 39.5,
+            regY: 36.25
         },
         animations: {
             standPerso2: [0, 3, true, 0.1],
-            walkPerso2: [4, 11, true, 0.2]
+            walkPerso2: [90, 95, true, 0.2]
         }
     });
 
     perso2 = new createjs.Sprite(ss, "standPerso2");
     perso2.x = stage.canvas.width / 2 + 200;
     perso2.y = stage.canvas.height / 2 + 110;
-    perso2.scaleX = 1.2;
+    perso2.scaleX = -1.2;
     perso2.scaleY = 1.2;
 
     perso2.gotoAndPlay("standPerso2");
@@ -162,11 +169,17 @@ function creationPerso2() {
 }
 
 function deplacement() {
-    if (clavier.gauche == 1) {
+    if (clavier1.gauche == 1) {
         perso1.x = perso1.x - 3;
     }
-    if (clavier.droite == 1) {
+    if (clavier1.droite == 1) {
         perso1.x = perso1.x + 3;
+    }
+    if (clavier2.gauche == 1) {
+        perso2.x = perso2.x - 3;
+    }
+    if (clavier2.droite == 1) {
+        perso2.x = perso2.x + 3;
     }
 }
 
