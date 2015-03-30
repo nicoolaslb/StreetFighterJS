@@ -118,8 +118,8 @@ function creationPerso1() {
     var ss = new createjs.SpriteSheet({
         images: [imgPerso1],
         frames: {
-            width: 70,
-            height: 140,
+            width: 100,
+            height: 100,
             regX: 35,
             regY: 70
         },
@@ -127,7 +127,8 @@ function creationPerso1() {
             standPerso1: [0, 3, true, 0.1],
             walkRightPerso1: [4, 8, true, 0.1],
             walkLeftPerso1: [4, 8, true, 0.1],
-            punch1Perso1: [10, 12, false, 0.15]
+            punch1Perso1: [10, 12, false, 0.15],
+            kick1Perso1: [13, 15, true, 0.1]
         }
     });
 
