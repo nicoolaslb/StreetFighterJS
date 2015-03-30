@@ -114,7 +114,7 @@ function init() {
     imgPerso1.src = "img/ken.png";
     imgPerso1.onload = creationPerso1();
 
-    imgPerso2.src = "img/yugi.png";
+    imgPerso2.src = "img/ryu.png";
     imgPerso2.onload = creationPerso2();
 
     createjs.Ticker.useRAF = true;
@@ -130,8 +130,8 @@ function creationPerso1() {
         frames: {
             width: 100,
             height: 100,
-            regX: 35,
-            regY: 70
+            regX: 50,
+            regY: 50
         },
         animations: {
             standPerso1: [0, 3, true, 0.1],
@@ -146,7 +146,7 @@ function creationPerso1() {
     perso1.scaleX = 1.2;
     perso1.scaleY = 1.2;
     perso1.x = stage.canvas.width / 2 - 200;
-    perso1.y = stage.canvas.height - 75;
+    perso1.y = stage.canvas.height - 90;
 
     stage.addChild(perso1);
     stage.update();
@@ -157,10 +157,10 @@ function creationPerso2() {
     var ss = new createjs.SpriteSheet({
         images: [imgPerso2],
         frames: {
-            width: 79,
-            height: 72.75,
-            regX: 39.5,
-            regY: 36.25
+            width: 100,
+            height: 100,
+            regX: 50,
+            regY: 50
         },
         animations: {
             standPerso2: [0, 3, true, 0.1],
@@ -170,7 +170,7 @@ function creationPerso2() {
 
     perso2 = new createjs.Sprite(ss, "standPerso2");
     perso2.x = stage.canvas.width / 2 + 200;
-    perso2.y = stage.canvas.height / 2 + 110;
+    perso2.y = stage.canvas.height / 2 + 115;
     perso2.scaleX = -1.2;
     perso2.scaleY = 1.2;
 
