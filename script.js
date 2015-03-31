@@ -16,7 +16,7 @@ var stage,
     clavier2 = {
         gauche: 0,
         droite: 0,
-        haut: 0,
+        numPad1: 0,
         bas: 0
     },
     bitmap;
@@ -29,11 +29,11 @@ function keyPress(e) {
     // PERSO 1
     if (e.keyCode == 81) {
         clavier1.gauche = 1;
-        perso1.gotoAndPlay("walkLeftPerso1");
+        perso1.gotoAndPlay("walkPerso1");
     }
     if (e.keyCode == 68) {
         clavier1.droite = 1;
-        perso1.gotoAndPlay("walkRightPerso1");
+        perso1.gotoAndPlay("walkPerso1");
 
     }
     if (e.keyCode == 85) {
@@ -55,9 +55,9 @@ function keyPress(e) {
         perso2.gotoAndPlay("walkPerso2");
 
     }
-    if (e.keyCode == 38) {
-        clavier2.haut = 1;
-        perso2.gotoAndPlay("jumpPerso2");
+    if (e.keyCode == 97) {
+        clavier2.numPad1 = 1;
+        perso2.gotoAndPlay("punch1Perso2");
     }
 
 }
@@ -94,6 +94,10 @@ function keyRelease(e) {
     }
     if (e.keyCode == 38) {
         clavier2.haut = 0;
+        perso2.gotoAndPlay("standPerso2");
+    }
+    if (e.keyCode == 97) {
+        clavier2.numPad1 = 0;
         perso2.gotoAndPlay("standPerso2");
     }
 }
@@ -135,8 +139,7 @@ function creationPerso1() {
         },
         animations: {
             standPerso1: [0, 3, true, 0.1],
-            walkRightPerso1: [4, 8, true, 0.1],
-            walkLeftPerso1: [4, 8, true, 0.1],
+            walkPerso1: [4, 8, true, 0.1],
             punch1Perso1: [10, 12, false, 0.15],
             kick1Perso1: [13, 15, true, 0.1]
         }
@@ -164,13 +167,14 @@ function creationPerso2() {
         },
         animations: {
             standPerso2: [0, 3, true, 0.1],
-            walkPerso2: [4, 8, true, 0.1]
+            walkPerso2: [4, 8, true, 0.1],
+            punch1Perso2: [10, 12, false, 0.1]
         }
     });
 
     perso2 = new createjs.Sprite(ss, "standPerso2");
     perso2.x = stage.canvas.width / 2 + 200;
-    perso2.y = stage.canvas.height / 2 + 115;
+    perso2.y = stage.canvas.height / 2 + 111;
     perso2.scaleX = -1.2;
     perso2.scaleY = 1.2;
 
