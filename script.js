@@ -20,7 +20,9 @@ var stage,
         numPad2: 0,
         bas: 0
     },
-    bitmap;
+    bitmap,
+    viePerso1,
+    viePerso2;
 
 window.onkeydown = keyPress;
 window.onkeyup = keyRelease;
@@ -137,7 +139,6 @@ function init() {
     createjs.Ticker.addEventListener("tick", tick);
 }
 
-
 function creationPerso1() {
     var ss = new createjs.SpriteSheet({
         images: [imgPerso1],
@@ -164,7 +165,6 @@ function creationPerso1() {
     stage.addChild(perso1);
     stage.update();
 }
-
 
 function creationPerso2() {
     var ss = new createjs.SpriteSheet({
@@ -211,7 +211,16 @@ function deplacement() {
 
 function tick() {
     deplacement();
+    gestionVie();
     stage.update();
 }
 
+function gestionVie() {
+    viePerso1 = 100;
+    viePerso2 = 100;
+
+    if (clavier1.U == 1 && perso2.x - perso1.x < 100) {
+        viePerso2 = viePerso2 - 5;
+    }
+}
 window.onload = init;
