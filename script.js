@@ -164,7 +164,7 @@ function creationPerso2() {
         },
         animations: {
             standPerso2: [0, 3, true, 0.1],
-            walkPerso2: [90, 95, true, 0.2]
+            walkPerso2: [4, 8, true, 0.1]
         }
     });
 
