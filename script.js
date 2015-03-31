@@ -17,6 +17,7 @@ var stage,
         gauche: 0,
         droite: 0,
         numPad1: 0,
+        numPad2: 0,
         bas: 0
     },
     bitmap;
@@ -59,6 +60,10 @@ function keyPress(e) {
         clavier2.numPad1 = 1;
         perso2.gotoAndPlay("punch1Perso2");
     }
+    if (e.keyCode == 98) {
+        clavier2.numPad2 = 1;
+        perso2.gotoAndPlay("kick1Perso2");
+    }
 
 }
 
@@ -100,6 +105,11 @@ function keyRelease(e) {
         clavier2.numPad1 = 0;
         perso2.gotoAndPlay("standPerso2");
     }
+    if (e.keyCode == 98) {
+        clavier2.numPad2 = 0;
+        perso2.gotoAndPlay("standPerso2");
+    }
+
 }
 
 function init() {
@@ -141,7 +151,7 @@ function creationPerso1() {
             standPerso1: [0, 3, true, 0.1],
             walkPerso1: [4, 8, true, 0.1],
             punch1Perso1: [10, 12, false, 0.15],
-            kick1Perso1: [13, 15, true, 0.1]
+            kick1Perso1: [13, 15, false, 0.1]
         }
     });
 
@@ -168,7 +178,8 @@ function creationPerso2() {
         animations: {
             standPerso2: [0, 3, true, 0.1],
             walkPerso2: [4, 8, true, 0.1],
-            punch1Perso2: [10, 12, false, 0.1]
+            punch1Perso2: [10, 12, false, 0.1],
+            kick1Perso2: [13, 15, false, 0.1]
         }
     });
 
