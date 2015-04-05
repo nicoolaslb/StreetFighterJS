@@ -1,5 +1,5 @@
 /*jslint eqeq: true, sloppy: true*/
-/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,walkRightPerso1*/
+/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,walkRightPerso1,gestionVie*/
 
 var stage,
     imgPerso1 = new Image(),
@@ -20,9 +20,11 @@ var stage,
         numPad2: 0,
         bas: 0
     },
-    bitmap,
-    viePerso1,
-    viePerso2;
+    bg,
+    viePerso1 = 100,
+    viePerso2 = 100,
+    bmpViePerso1,
+    bmpViePerso2;
 
 window.onkeydown = keyPress;
 window.onkeyup = keyRelease;
@@ -117,14 +119,14 @@ function keyRelease(e) {
 function init() {
     stage = new createjs.Stage('canvas');
 
-    bitmap = new createjs.Bitmap("img/arena.png");
-    bitmap.regX = 328.5;
-    bitmap.regY = 112;
-    bitmap.scaleX = 1.8;
-    bitmap.scaleY = 1.8;
-    bitmap.x = stage.canvas.width / 2;
-    bitmap.y = stage.canvas.height / 2;
-    stage.addChild(bitmap);
+    bg = new createjs.Bitmap("img/arena.png");
+    bg.regX = 328.5;
+    bg.regY = 112;
+    bg.scaleX = 1.8;
+    bg.scaleY = 1.8;
+    bg.x = stage.canvas.width / 2;
+    bg.y = stage.canvas.height / 2;
+    stage.addChild(bg);
     stage.update();
 
     imgPerso1.src = "img/ken.png";
@@ -132,6 +134,24 @@ function init() {
 
     imgPerso2.src = "img/ryu.png";
     imgPerso2.onload = creationPerso2();
+
+    bmpViePerso1 = new createjs.Bitmap("img/vie/100.png");
+    bmpViePerso2 = new createjs.Bitmap("img/vie/100.png");
+    bmpViePerso1.regX = 256;
+    bmpViePerso1.regY = 16;
+    bmpViePerso2.regX = 256;
+    bmpViePerso2.regY = 16;
+    bmpViePerso1.scaleX = 1;
+    bmpViePerso1.scaleY = 0.85;
+    bmpViePerso2.scaleX = -1;
+    bmpViePerso2.scaleY = 0.85;
+    bmpViePerso1.x = stage.canvas.width / 2 - 50;
+    bmpViePerso1.y = 50;
+    bmpViePerso2.x = bmpViePerso1.x + 100;
+    bmpViePerso2.y = 50;
+    stage.addChild(bmpViePerso1);
+    stage.addChild(bmpViePerso2);
+    stage.update();
 
     createjs.Ticker.useRAF = true;
     createjs.Ticker.setFPS(40);
@@ -210,17 +230,21 @@ function deplacement() {
 }
 
 function tick() {
+
     deplacement();
     gestionVie();
+
     stage.update();
 }
 
 function gestionVie() {
-    viePerso1 = 100;
-    viePerso2 = 100;
-
     if (clavier1.U == 1 && perso2.x - perso1.x < 100) {
         viePerso2 = viePerso2 - 5;
     }
+    if (clavier2.numPad1 == 1 && perso2.x - perso1.x < 100) {
+        viePerso1 = viePerso1 - 5;
+    }
+
 }
+
 window.onload = init;
