@@ -24,7 +24,18 @@ var stage,
     viePerso1 = 100,
     viePerso2 = 100,
     bmpViePerso1,
-    bmpViePerso2;
+    bmpViePerso2,
+    bmp90,
+    bmp80,
+    bmp70,
+    bmp60,
+    bmp50,
+    bmp40,
+    bmp30,
+    bmp20,
+    bmp10,
+    bmp05,
+    bmp00;
 
 window.onkeydown = keyPress;
 window.onkeyup = keyRelease;
@@ -151,6 +162,20 @@ function init() {
     bmpViePerso2.y = 50;
     stage.addChild(bmpViePerso1);
     stage.addChild(bmpViePerso2);
+
+
+    bmp90 = new createjs.Bitmap("img/vie/90.png");
+    bmp80 = new createjs.Bitmap("img/vie/80.png");
+    bmp70 = new createjs.Bitmap("img/vie/70.png");
+    bmp60 = new createjs.Bitmap("img/vie/60.png");
+    bmp50 = new createjs.Bitmap("img/vie/50.png");
+    bmp40 = new createjs.Bitmap("img/vie/40.png");
+    bmp30 = new createjs.Bitmap("img/vie/30.png");
+    bmp20 = new createjs.Bitmap("img/vie/20.png");
+    bmp10 = new createjs.Bitmap("img/vie/10.png");
+    bmp05 = new createjs.Bitmap("img/vie/5.png");
+    bmp00 = new createjs.Bitmap("img/vie/0.png");
+
     stage.update();
 
     createjs.Ticker.useRAF = true;
@@ -239,12 +264,117 @@ function tick() {
 
 function gestionVie() {
     if (clavier1.U == 1 && perso2.x - perso1.x < 100) {
-        viePerso2 = viePerso2 - 5;
+        viePerso2 = viePerso2 - 10;
     }
     if (clavier2.numPad1 == 1 && perso2.x - perso1.x < 100) {
-        viePerso1 = viePerso1 - 5;
+        viePerso1 = viePerso1 - 10;
     }
 
+    switch (viePerso1) {
+
+    case 90:
+        bmpViePerso1.image = bmp90.image;
+        stage.update();
+        break;
+
+    case 80:
+        bmpViePerso1.image = bmp80.image;
+        stage.update();
+        break;
+
+    case 70:
+        bmpViePerso1.image = bmp70.image;
+        stage.update();
+        break;
+
+    case 60:
+        bmpViePerso1.image = bmp60.image;
+        stage.update();
+        break;
+
+    case 50:
+        bmpViePerso1.image = bmp50.image;
+        stage.update();
+        break;
+
+    case 40:
+        bmpViePerso1.image = bmp40.image;
+        stage.update();
+        break;
+
+    case 30:
+        bmpViePerso1.image = bmp30.image;
+        stage.update();
+        break;
+
+    case 20:
+        bmpViePerso1.image = bmp20.image;
+        stage.update();
+        break;
+
+    case 10:
+        bmpViePerso1.image = bmp10.image;
+        stage.update();
+        break;
+
+    case 0:
+        bmpViePerso1.image = bmp00.image;
+        stage.update();
+        break;
+    }
+
+    switch (viePerso2) {
+
+    case 90:
+        bmpViePerso2.image = bmp90.image;
+        stage.update();
+        break;
+
+    case 80:
+        bmpViePerso2.image = bmp80.image;
+        stage.update();
+        break;
+
+    case 70:
+        bmpViePerso2.image = bmp70.image;
+        stage.update();
+        break;
+
+    case 60:
+        bmpViePerso2.image = bmp60.image;
+        stage.update();
+        break;
+
+    case 50:
+        bmpViePerso2.image = bmp50.image;
+        stage.update();
+        break;
+
+    case 40:
+        bmpViePerso2.image = bmp40.image;
+        stage.update();
+        break;
+
+    case 30:
+        bmpViePerso2.image = bmp30.image;
+        stage.update();
+        break;
+
+    case 20:
+        bmpViePerso2.image = bmp20.image;
+        stage.update();
+        break;
+
+    case 10:
+        bmpViePerso2.image = bmp10.image;
+        stage.update();
+        break;
+
+    case 0:
+        bmpViePerso2.image = bmp00.image;
+        stage.update();
+        break;
+    }
 }
 
 window.onload = init;
