@@ -263,10 +263,10 @@ function tick() {
 }
 
 function gestionVie() {
-    if (clavier1.U == 1 && perso2.x - perso1.x < 100) {
+    if (clavier1.U == 1 && perso2.x - perso1.x < 50) {
         viePerso2 = viePerso2 - 10;
     }
-    if (clavier2.numPad1 == 1 && perso2.x - perso1.x < 100) {
+    if (clavier2.numPad1 == 1 && perso2.x - perso1.x < 50) {
         viePerso1 = viePerso1 - 10;
     }
 
