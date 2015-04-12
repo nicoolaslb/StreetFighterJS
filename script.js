@@ -284,9 +284,11 @@ function tick() {
 function gestionVie() {
     if (clavier1.U == 1 && perso2.x - perso1.x < 50 && clavier2.numPad3 == 0) {
         viePerso2 = viePerso2 - 10;
+        perso2.gotoAndPlay("hitPerso2");
     }
     if (clavier2.numPad1 == 1 && perso2.x - perso1.x < 50 && clavier1.O == 0) {
         viePerso1 = viePerso1 - 10;
+        perso1.gotoAndPlay("hitPerso1");
     }
 
     switch (viePerso1) {
@@ -396,10 +398,8 @@ function gestionVie() {
     }
 }
 
-function animationsDegats() {
-
-    // Si une attaque est portée sur un personnage, animation de hit pour le personnage touché
-}
 
 // Dès que la page est chargée, on appelle notre fonction init, initiatrice du projet.
 window.onload = init;
+
+// GERER PROBLEME VIE QUI DESCEND TROP VITE !
