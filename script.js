@@ -219,10 +219,10 @@ function creationPerso1() {
     });
 
     perso1 = new createjs.Sprite(ss, "standPerso1");
-    perso1.scaleX = 1.35;
-    perso1.scaleY = 1.35;
+    perso1.scaleX = 1.9;
+    perso1.scaleY = 1.9;
     perso1.x = stage.canvas.width / 2 - 200;
-    perso1.y = stage.canvas.height - 90;
+    perso1.y = stage.canvas.height - 110;
 
     stage.addChild(perso1);
     stage.update();
@@ -249,9 +249,9 @@ function creationPerso2() {
 
     perso2 = new createjs.Sprite(ss, "standPerso2");
     perso2.x = stage.canvas.width / 2 + 200;
-    perso2.y = stage.canvas.height / 2 + 111;
-    perso2.scaleX = -1.35;
-    perso2.scaleY = 1.35;
+    perso2.y = stage.canvas.height / 2 + 90;
+    perso2.scaleX = -1.9;
+    perso2.scaleY = 1.9;
 
     perso2.gotoAndPlay("standPerso2");
     stage.addChild(perso2);
@@ -282,11 +282,11 @@ function tick() {
 }
 
 function gestionVie() {
-    if (clavier1.U == 1 && perso2.x - perso1.x < 50 && clavier2.numPad3 == 0) {
+    if (clavier1.U == 1 && perso2.x - perso1.x < 75 && clavier2.numPad3 == 0) {
         viePerso2 = viePerso2 - 10;
         perso2.gotoAndPlay("hitPerso2");
     }
-    if (clavier2.numPad1 == 1 && perso2.x - perso1.x < 50 && clavier1.O == 0) {
+    if (clavier2.numPad1 == 1 && perso2.x - perso1.x < 75 && clavier1.O == 0) {
         viePerso1 = viePerso1 - 10;
         perso1.gotoAndPlay("hitPerso1");
     }

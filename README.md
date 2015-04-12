@@ -6,3 +6,10 @@ Ce projet a un but scolaire uniquement.
 Pour l'instant, il n'est pas possible de générer des `Pull requests`. <br>
 Le projet s'inscrivant dans un cadre scolaire, il est uniquement possible aux personnes extérieures au groupe de récupérer le code ou de rapporter des erreurs. <br>
 Lorsque le projet sera fini, il sera mis en Open Source, et ainsi modifiable par toute la communauté de GitHub :).
+#### Prochains ajouts
+- Gestion des collisions
+- Fixer le problème de la barre de vie
+- Ajouter menu
+- Ajouter animations de KO
+- Ajouter musique avec "FIGHT" et "KO"
+- Gestion de scores
