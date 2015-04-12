@@ -11,6 +11,7 @@ var stage,
         droite: 0,
         U: 0,
         I: 0,
+        O: 0,
         bas: 0
     },
     clavier2 = {
@@ -18,6 +19,7 @@ var stage,
         droite: 0,
         numPad1: 0,
         numPad2: 0,
+        numPad3: 0,
         bas: 0
     },
     bg,
@@ -50,7 +52,6 @@ function keyPress(e) {
     if (e.keyCode == 68) {
         clavier1.droite = 1;
         perso1.gotoAndPlay("walkPerso1");
-
     }
     if (e.keyCode == 85) {
         clavier1.U = 1;
@@ -60,11 +61,14 @@ function keyPress(e) {
         clavier1.I = 1;
         perso1.gotoAndPlay("kick1Perso1");
     }
+    if (e.keyCode == 79) {
+        clavier1.O = 1;
+        perso1.gotoAndPlay("blockPerso1");
+    }
     // PERSO 2
     if (e.keyCode == 37) {
         clavier2.gauche = 1;
         perso2.gotoAndPlay("walkPerso2");
-
     }
     if (e.keyCode == 39) {
         clavier2.droite = 1;
@@ -79,6 +83,10 @@ function keyPress(e) {
         clavier2.numPad2 = 1;
         perso2.gotoAndPlay("kick1Perso2");
     }
+    if (e.keyCode == 99) {
+        clavier2.numPad3 = 1;
+        perso2.gotoAndPlay("blockPerso2");
+    }
 
 }
 
@@ -91,7 +99,6 @@ function keyRelease(e) {
     if (e.keyCode == 68) {
         clavier1.droite = 0;
         perso1.gotoAndPlay("standPerso1");
-
     }
     if (e.keyCode == 85) {
         clavier1.U = 0;
@@ -99,6 +106,10 @@ function keyRelease(e) {
     }
     if (e.keyCode == 73) {
         clavier1.I = 0;
+        perso1.gotoAndPlay("standPerso1");
+    }
+    if (e.keyCode == 79) {
+        clavier1.O = 0;
         perso1.gotoAndPlay("standPerso1");
     }
     // PERSO 2
@@ -122,6 +133,10 @@ function keyRelease(e) {
     }
     if (e.keyCode == 98) {
         clavier2.numPad2 = 0;
+        perso2.gotoAndPlay("standPerso2");
+    }
+    if (e.keyCode == 99) {
+        clavier2.numPad3 = 0;
         perso2.gotoAndPlay("standPerso2");
     }
 
@@ -197,7 +212,8 @@ function creationPerso1() {
             standPerso1: [0, 3, true, 0.1],
             walkPerso1: [4, 8, true, 0.1],
             punch1Perso1: [10, 12, false, 0.15],
-            kick1Perso1: [13, 15, false, 0.1]
+            kick1Perso1: [13, 15, false, 0.1],
+            blockPerso1: [16, 16, false, 0.1]
         }
     });
 
@@ -224,7 +240,8 @@ function creationPerso2() {
             standPerso2: [0, 3, true, 0.1],
             walkPerso2: [4, 8, true, 0.1],
             punch1Perso2: [10, 12, false, 0.1],
-            kick1Perso2: [13, 15, false, 0.1]
+            kick1Perso2: [13, 15, false, 0.1],
+            blockPerso2: [16, 16, false, 0.1]
         }
     });
 
@@ -263,10 +280,10 @@ function tick() {
 }
 
 function gestionVie() {
-    if (clavier1.U == 1 && perso2.x - perso1.x < 50) {
+    if (clavier1.U == 1 && perso2.x - perso1.x < 50 && clavier2.numPad3 == 0) {
         viePerso2 = viePerso2 - 10;
     }
-    if (clavier2.numPad1 == 1 && perso2.x - perso1.x < 50) {
+    if (clavier2.numPad1 == 1 && perso2.x - perso1.x < 50 && clavier1.O == 0) {
         viePerso1 = viePerso1 - 10;
     }
 
@@ -377,4 +394,5 @@ function gestionVie() {
     }
 }
 
+// Dès que la page est chargée, on appelle notre fonction init, initiatrice du projet.
 window.onload = init;
