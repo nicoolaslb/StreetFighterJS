@@ -282,11 +282,21 @@ function tick() {
 }
 
 function gestionVie() {
-    if (clavier1.U == 1 && perso2.x - perso1.x < 75 && clavier2.numPad3 == 0) {
+
+    if (clavier1.U == 1 && perso2.x - perso1.x < 80 && clavier2.numPad3 == 0) {
         viePerso2 = viePerso2 - 10;
         perso2.gotoAndPlay("hitPerso2");
     }
-    if (clavier2.numPad1 == 1 && perso2.x - perso1.x < 75 && clavier1.O == 0) {
+    if (clavier1.I == 1 && perso2.x - perso1.x < 95 && clavier2.numPad3 == 0) {
+        viePerso2 = viePerso2 - 10;
+        perso2.gotoAndPlay("hitPerso2");
+    }
+
+    if (clavier2.numPad1 == 1 && perso2.x - perso1.x < 80 && clavier1.O == 0) {
+        viePerso1 = viePerso1 - 10;
+        perso1.gotoAndPlay("hitPerso1");
+    }
+    if (clavier2.numPad2 == 1 && perso2.x - perso1.x < 95 && clavier1.O == 0) {
         viePerso1 = viePerso1 - 10;
         perso1.gotoAndPlay("hitPerso1");
     }
