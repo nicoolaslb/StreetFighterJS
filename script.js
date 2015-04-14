@@ -408,8 +408,8 @@ function gestionVie() {
     }
 }
 
-
 // Dès que la page est chargée, on appelle notre fonction init, initiatrice du projet.
 window.onload = init;
+
 
 // GERER PROBLEME VIE QUI DESCEND TROP VITE !
