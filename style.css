@@ -1,5 +1,5 @@
 html {
-    background-color: #2a2a2a;
+    background-color: #2A2A2A;
 }
 
 #header {
@@ -29,4 +29,8 @@ footer {
     text-align: center;
     margin-top: 23%;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+a {
+    color: #4B4B4B;
 }
