@@ -279,8 +279,6 @@ function tick() {
 
     deplacement();
     gestionVie();
-    baisseVie();
-
     stage.update();
 }
 
