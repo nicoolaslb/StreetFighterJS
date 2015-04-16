@@ -37,7 +37,9 @@ var stage,
     bmp20,
     bmp10,
     bmp05,
-    bmp00;
+    bmp00,
+    coup1 = 0,
+    coup2 = 0;
 
 window.onkeydown = keyPress;
 window.onkeyup = keyRelease;
@@ -195,7 +197,7 @@ function init() {
 
     createjs.Ticker.useRAF = true;
     createjs.Ticker.setFPS(40);
-    createjs.Ticker.addEventListener("tick", stage);
+    // createjs.Ticker.addEventListener("tick", stage);
     createjs.Ticker.addEventListener("tick", tick);
 }
 
@@ -209,12 +211,12 @@ function creationPerso1() {
             regY: 50
         },
         animations: {
-            standPerso1: [0, 3, true, 0.1],
-            walkPerso1: [4, 8, true, 0.1],
-            punch1Perso1: [10, 12, false, 0.15],
-            kick1Perso1: [13, 15, false, 0.1],
-            blockPerso1: [16, 16, false, 0.1],
-            hitPerso1: [20, 23, false, 0.15]
+            standPerso1: [0, 3, true, 0.15],
+            walkPerso1: [4, 8, true, 0.15],
+            punch1Perso1: [10, 12, false, 0.25],
+            kick1Perso1: [13, 15, false, 0.15],
+            blockPerso1: [16, 16, false, 0.15],
+            hitPerso1: [20, 23, false, 0.25]
         }
     });
 
@@ -238,12 +240,12 @@ function creationPerso2() {
             regY: 50
         },
         animations: {
-            standPerso2: [0, 3, true, 0.1],
-            walkPerso2: [4, 8, true, 0.1],
-            punch1Perso2: [10, 12, false, 0.1],
-            kick1Perso2: [13, 15, false, 0.1],
-            blockPerso2: [16, 16, false, 0.1],
-            hitPerso2: [20, 23, false, 0.15]
+            standPerso2: [0, 3, true, 0.15],
+            walkPerso2: [4, 8, true, 0.15],
+            punch1Perso2: [10, 12, false, 0.25],
+            kick1Perso2: [13, 15, false, 0.15],
+            blockPerso2: [16, 16, false, 0.15],
+            hitPerso2: [20, 23, false, 0.25]
         }
     });
 
@@ -277,6 +279,7 @@ function tick() {
 
     deplacement();
     gestionVie();
+    baisseVie();
 
     stage.update();
 }
@@ -410,6 +413,5 @@ function gestionVie() {
 
 // Dès que la page est chargée, on appelle notre fonction init, initiatrice du projet.
 window.onload = init;
-
 
 // GERER PROBLEME VIE QUI DESCEND TROP VITE !
