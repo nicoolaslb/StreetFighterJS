@@ -159,9 +159,11 @@ function init() {
 
     imgPerso1.src = "img/ken.png";
     imgPerso1.onload = creationPerso1();
-
+	stage.update();
+	
     imgPerso2.src = "img/ryu.png";
     imgPerso2.onload = creationPerso2();
+	stage.update();
 
     bmpViePerso1 = new createjs.Bitmap("img/vie/100.png");
     bmpViePerso2 = new createjs.Bitmap("img/vie/100.png");
@@ -284,22 +286,33 @@ function tick() {
 
 function gestionVie() {
 
-    if (clavier1.U == 1 && perso2.x - perso1.x < 80 && clavier2.numPad3 == 0) {
+    if (clavier1.U == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier2.numPad3 == 0) {
         viePerso2 = viePerso2 - 10;
+		perso2.x = perso2.x + 20;
         perso2.gotoAndPlay("hitPerso2");
+        stage.update();
     }
-    if (clavier1.I == 1 && perso2.x - perso1.x < 95 && clavier2.numPad3 == 0) {
+    if (clavier1.I == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier2.numPad3 == 0) {
         viePerso2 = viePerso2 - 10;
+		perso2.x = perso2.x + 40;
         perso2.gotoAndPlay("hitPerso2");
+        stage.update();
+
     }
 
-    if (clavier2.numPad1 == 1 && perso2.x - perso1.x < 80 && clavier1.O == 0) {
+    if (clavier2.numPad1 == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier1.O == 0) {
         viePerso1 = viePerso1 - 10;
+		perso1.x = perso1.x - 20;
         perso1.gotoAndPlay("hitPerso1");
+        stage.update();
+
     }
-    if (clavier2.numPad2 == 1 && perso2.x - perso1.x < 95 && clavier1.O == 0) {
+    if (clavier2.numPad2 == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier1.O == 0) {
         viePerso1 = viePerso1 - 10;
+		perso1.x = perso1.x - 40;
         perso1.gotoAndPlay("hitPerso1");
+        stage.update();
+
     }
 
     switch (viePerso1) {
@@ -409,7 +422,6 @@ function gestionVie() {
     }
 }
 
-// Dès que la page est chargée, on appelle notre fonction init, initiatrice du projet.
 window.onload = init;
 
 // GERER PROBLEME VIE QUI DESCEND TROP VITE !
