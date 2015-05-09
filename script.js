@@ -1,5 +1,5 @@
 /*jslint eqeq: true, sloppy: true*/
-/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,walkRightPerso1,gestionVie,reloadPage*/
+/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,gestionVie,ko*/
 
 var stage,
     imgPerso1 = new Image(),
@@ -90,6 +90,7 @@ function keyPress(e) {
         perso2.gotoAndPlay("blockPerso2");
     }
 
+
 }
 
 function keyRelease(e) {
@@ -159,11 +160,11 @@ function init() {
 
     imgPerso1.src = "img/ken.png";
     imgPerso1.onload = creationPerso1();
-	stage.update();
-	
+    stage.update();
+
     imgPerso2.src = "img/ryu.png";
     imgPerso2.onload = creationPerso2();
-	stage.update();
+    stage.update();
 
     bmpViePerso1 = new createjs.Bitmap("img/vie/100.png");
     bmpViePerso2 = new createjs.Bitmap("img/vie/100.png");
@@ -218,7 +219,8 @@ function creationPerso1() {
             punch1Perso1: [10, 12, false, 0.25],
             kick1Perso1: [13, 15, false, 0.15],
             blockPerso1: [16, 16, false, 0.15],
-            hitPerso1: [20, 23, false, 0.25]
+            hitPerso1: [20, 23, false, 0.25],
+            koPerso1: [25, 27, false, 0.10]
         }
     });
 
@@ -247,7 +249,9 @@ function creationPerso2() {
             punch1Perso2: [10, 12, false, 0.25],
             kick1Perso2: [13, 15, false, 0.15],
             blockPerso2: [16, 16, false, 0.15],
-            hitPerso2: [20, 23, false, 0.25]
+            hitPerso2: [20, 23, false, 0.15],
+            koPerso2: [25, 27, false, 0.10]
+
         }
     });
 
@@ -281,6 +285,15 @@ function tick() {
 
     deplacement();
     gestionVie();
+    if (viePerso1 <= 0) {
+        ko();
+        perso1.gotoAndPlay("koPerso1");
+    }
+    if (viePerso2 <= 0) {
+        ko();
+        perso2.gotoAndPlay("koPerso2");
+    }
+
     stage.update();
 }
 
@@ -288,13 +301,13 @@ function gestionVie() {
 
     if (clavier1.U == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier2.numPad3 == 0) {
         viePerso2 = viePerso2 - 10;
-		perso2.x = perso2.x + 20;
+        perso2.x = perso2.x + 20;
         perso2.gotoAndPlay("hitPerso2");
         stage.update();
     }
     if (clavier1.I == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier2.numPad3 == 0) {
         viePerso2 = viePerso2 - 10;
-		perso2.x = perso2.x + 40;
+        perso2.x = perso2.x + 40;
         perso2.gotoAndPlay("hitPerso2");
         stage.update();
 
@@ -302,14 +315,14 @@ function gestionVie() {
 
     if (clavier2.numPad1 == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier1.O == 0) {
         viePerso1 = viePerso1 - 10;
-		perso1.x = perso1.x - 20;
+        perso1.x = perso1.x - 20;
         perso1.gotoAndPlay("hitPerso1");
         stage.update();
 
     }
     if (clavier2.numPad2 == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier1.O == 0) {
         viePerso1 = viePerso1 - 10;
-		perso1.x = perso1.x - 40;
+        perso1.x = perso1.x - 40;
         perso1.gotoAndPlay("hitPerso1");
         stage.update();
 
@@ -422,6 +435,12 @@ function gestionVie() {
     }
 }
 
+function ko() {
+    clavier1.gauche = 0;
+    clavier1.droite = 0;
+    clavier2.gauche = 0;
+    clavier2.droite = 0;
+    window.onkeydown = null;
+    window.onkeyup = null;
+}
 window.onload = init;
-
-// GERER PROBLEME VIE QUI DESCEND TROP VITE !
