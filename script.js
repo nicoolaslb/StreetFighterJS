@@ -54,6 +54,7 @@ function keyPress(e) {
         clavier1.O = 1;
         perso1.gotoAndPlay("blockPerso1");
     }
+
     // PERSO 2
     if (e.keyCode == 37) {
         clavier2.gauche = 1;
@@ -62,7 +63,6 @@ function keyPress(e) {
     if (e.keyCode == 39) {
         clavier2.droite = 1;
         perso2.gotoAndPlay("walkPerso2");
-
     }
     if (e.keyCode == 97) {
         clavier2.numPad1 = 1;
@@ -76,11 +76,10 @@ function keyPress(e) {
         clavier2.numPad3 = 1;
         perso2.gotoAndPlay("blockPerso2");
     }
-
-
 }
 
 function keyRelease(e) {
+
     // PERSO 1
     if (e.keyCode == 81) {
         clavier1.gauche = 0;
@@ -102,16 +101,15 @@ function keyRelease(e) {
         clavier1.O = 0;
         perso1.gotoAndPlay("standPerso1");
     }
+
     // PERSO 2
     if (e.keyCode == 37) {
         clavier2.gauche = 0;
         perso2.gotoAndPlay("standPerso2");
-
     }
     if (e.keyCode == 39) {
         clavier2.droite = 0;
         perso2.gotoAndPlay("standPerso2");
-
     }
     if (e.keyCode == 38) {
         clavier2.haut = 0;
@@ -135,6 +133,7 @@ function keyRelease(e) {
 function init() {
     stage = new createjs.Stage('canvas');
 
+    // Creation de l'arène
     bg = new createjs.Bitmap("img/arena.png");
     bg.regX = 328.5;
     bg.regY = 112;
@@ -145,16 +144,20 @@ function init() {
     stage.addChild(bg);
     stage.update();
 
+    // On crée le personnage 1
     imgPerso1.src = "img/ken.png";
     imgPerso1.onload = creationPerso1();
     stage.update();
 
+    // Idem pour le personnage 2
     imgPerso2.src = "img/ryu.png";
     imgPerso2.onload = creationPerso2();
     stage.update();
 
+    // Fonction génératrice de la barre de vie
     shapes();
 
+    // Fond de la barre de vie (en rouge)
     bmpViePerso1 = new createjs.Bitmap("img/VIE.png");
     bmpViePerso1.regX = 256;
     bmpViePerso1.regY = 16;
@@ -178,9 +181,9 @@ function init() {
 
     stage.update();
 
+    // Ticker
     createjs.Ticker.useRAF = true;
     createjs.Ticker.setFPS(40);
-    // createjs.Ticker.addEventListener("tick", stage);
     createjs.Ticker.addEventListener("tick", tick);
 }
 
@@ -292,6 +295,8 @@ function tick() {
 
     deplacement();
     gestionVie();
+
+    // Quand un personnage n'a plus de vie, on arrête le jeu
     if (shape1.scaleX <= 0) {
         ko();
         perso1.gotoAndPlay("koPerso1");
