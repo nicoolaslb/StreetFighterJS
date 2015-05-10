@@ -1,5 +1,5 @@
 /*jslint eqeq: true, sloppy: true*/
-/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,gestionVie,ko*/
+/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,gestionVie,ko,shapes*/
 
 var stage,
     imgPerso1 = new Image(),
@@ -23,23 +23,10 @@ var stage,
         bas: 0
     },
     bg,
-    viePerso1 = 100,
-    viePerso2 = 100,
     bmpViePerso1,
     bmpViePerso2,
-    bmp90,
-    bmp80,
-    bmp70,
-    bmp60,
-    bmp50,
-    bmp40,
-    bmp30,
-    bmp20,
-    bmp10,
-    bmp05,
-    bmp00,
-    coup1 = 0,
-    coup2 = 0;
+    shape1,
+    shape2;
 
 window.onkeydown = keyPress;
 window.onkeyup = keyRelease;
@@ -166,35 +153,28 @@ function init() {
     imgPerso2.onload = creationPerso2();
     stage.update();
 
-    bmpViePerso1 = new createjs.Bitmap("img/vie/100.png");
-    bmpViePerso2 = new createjs.Bitmap("img/vie/100.png");
+    shapes();
+
+    bmpViePerso1 = new createjs.Bitmap("img/VIE.png");
     bmpViePerso1.regX = 256;
     bmpViePerso1.regY = 16;
-    bmpViePerso2.regX = 256;
-    bmpViePerso2.regY = 16;
-    bmpViePerso1.scaleX = 1;
-    bmpViePerso1.scaleY = 0.85;
-    bmpViePerso2.scaleX = -1;
-    bmpViePerso2.scaleY = 0.85;
     bmpViePerso1.x = stage.canvas.width / 2 - 50;
     bmpViePerso1.y = 50;
+    bmpViePerso1.scaleX = 1.01;
+    bmpViePerso1.scaleY = 0.85;
+
+
+    bmpViePerso2 = new createjs.Bitmap("img/VIE.png");
+    bmpViePerso2.regX = 256;
+    bmpViePerso2.regY = 16;
+    bmpViePerso2.scaleX = -1.01;
+    bmpViePerso2.scaleY = 0.85;
     bmpViePerso2.x = bmpViePerso1.x + 100;
     bmpViePerso2.y = 50;
+
     stage.addChild(bmpViePerso1);
     stage.addChild(bmpViePerso2);
 
-
-    bmp90 = new createjs.Bitmap("img/vie/90.png");
-    bmp80 = new createjs.Bitmap("img/vie/80.png");
-    bmp70 = new createjs.Bitmap("img/vie/70.png");
-    bmp60 = new createjs.Bitmap("img/vie/60.png");
-    bmp50 = new createjs.Bitmap("img/vie/50.png");
-    bmp40 = new createjs.Bitmap("img/vie/40.png");
-    bmp30 = new createjs.Bitmap("img/vie/30.png");
-    bmp20 = new createjs.Bitmap("img/vie/20.png");
-    bmp10 = new createjs.Bitmap("img/vie/10.png");
-    bmp05 = new createjs.Bitmap("img/vie/5.png");
-    bmp00 = new createjs.Bitmap("img/vie/0.png");
 
     stage.update();
 
@@ -266,6 +246,33 @@ function creationPerso2() {
     stage.update();
 }
 
+function shapes() {
+
+    shape1 = new createjs.Shape();
+    shape1.graphics.beginFill("#FFCC00").drawRect(0, 0, 238, 16);
+    shape1.x = stage.canvas.width / 2 - 52;
+    shape1.scaleY = 1.2;
+    shape1.scaleX = 1;
+    shape1.y = 59;
+    shape1.regX = 238;
+    shape1.regY = 16;
+
+    shape2 = new createjs.Shape();
+    shape2.graphics.beginFill("#FFCC00").drawRect(0, 0, 238, 16);
+    shape2.x = stage.canvas.width / 2 + 52;
+    shape2.scaleX = -1;
+    shape2.scaleY = 1.2;
+    shape2.y = 59;
+    shape2.regX = 238;
+    shape2.regY = 16;
+
+
+    stage.addChild(shape1);
+    stage.addChild(shape2);
+
+    stage.update();
+}
+
 function deplacement() {
     if (clavier1.gauche == 1) {
         perso1.x = perso1.x - 3;
@@ -285,11 +292,11 @@ function tick() {
 
     deplacement();
     gestionVie();
-    if (viePerso1 <= 0) {
+    if (shape1.scaleX <= 0) {
         ko();
         perso1.gotoAndPlay("koPerso1");
     }
-    if (viePerso2 <= 0) {
+    if (shape2.scaleX >= 0) {
         ko();
         perso2.gotoAndPlay("koPerso2");
     }
@@ -300,13 +307,13 @@ function tick() {
 function gestionVie() {
 
     if (clavier1.U == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier2.numPad3 == 0) {
-        viePerso2 = viePerso2 - 10;
+        shape2.scaleX = shape2.scaleX + 0.05;
         perso2.x = perso2.x + 20;
         perso2.gotoAndPlay("hitPerso2");
         stage.update();
     }
     if (clavier1.I == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier2.numPad3 == 0) {
-        viePerso2 = viePerso2 - 10;
+        shape2.scaleX = shape2.scaleX + 0.1;
         perso2.x = perso2.x + 40;
         perso2.gotoAndPlay("hitPerso2");
         stage.update();
@@ -314,124 +321,19 @@ function gestionVie() {
     }
 
     if (clavier2.numPad1 == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier1.O == 0) {
-        viePerso1 = viePerso1 - 10;
+
+        shape1.scaleX = shape1.scaleX - 0.05;
         perso1.x = perso1.x - 20;
         perso1.gotoAndPlay("hitPerso1");
         stage.update();
 
     }
     if (clavier2.numPad2 == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier1.O == 0) {
-        viePerso1 = viePerso1 - 10;
+        shape1.scaleX = shape1.scaleX - 0.1;
         perso1.x = perso1.x - 40;
         perso1.gotoAndPlay("hitPerso1");
         stage.update();
 
-    }
-
-    switch (viePerso1) {
-
-    case 90:
-        bmpViePerso1.image = bmp90.image;
-        stage.update();
-        break;
-
-    case 80:
-        bmpViePerso1.image = bmp80.image;
-        stage.update();
-        break;
-
-    case 70:
-        bmpViePerso1.image = bmp70.image;
-        stage.update();
-        break;
-
-    case 60:
-        bmpViePerso1.image = bmp60.image;
-        stage.update();
-        break;
-
-    case 50:
-        bmpViePerso1.image = bmp50.image;
-        stage.update();
-        break;
-
-    case 40:
-        bmpViePerso1.image = bmp40.image;
-        stage.update();
-        break;
-
-    case 30:
-        bmpViePerso1.image = bmp30.image;
-        stage.update();
-        break;
-
-    case 20:
-        bmpViePerso1.image = bmp20.image;
-        stage.update();
-        break;
-
-    case 10:
-        bmpViePerso1.image = bmp10.image;
-        stage.update();
-        break;
-
-    case 0:
-        bmpViePerso1.image = bmp00.image;
-        stage.update();
-        break;
-    }
-
-    switch (viePerso2) {
-
-    case 90:
-        bmpViePerso2.image = bmp90.image;
-        stage.update();
-        break;
-
-    case 80:
-        bmpViePerso2.image = bmp80.image;
-        stage.update();
-        break;
-
-    case 70:
-        bmpViePerso2.image = bmp70.image;
-        stage.update();
-        break;
-
-    case 60:
-        bmpViePerso2.image = bmp60.image;
-        stage.update();
-        break;
-
-    case 50:
-        bmpViePerso2.image = bmp50.image;
-        stage.update();
-        break;
-
-    case 40:
-        bmpViePerso2.image = bmp40.image;
-        stage.update();
-        break;
-
-    case 30:
-        bmpViePerso2.image = bmp30.image;
-        stage.update();
-        break;
-
-    case 20:
-        bmpViePerso2.image = bmp20.image;
-        stage.update();
-        break;
-
-    case 10:
-        bmpViePerso2.image = bmp10.image;
-        stage.update();
-        break;
-
-    case 0:
-        bmpViePerso2.image = bmp00.image;
-        stage.update();
-        break;
     }
 }
 
@@ -443,4 +345,5 @@ function ko() {
     window.onkeydown = null;
     window.onkeyup = null;
 }
+
 window.onload = init;
