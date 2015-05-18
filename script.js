@@ -1,13 +1,14 @@
 /*jslint eqeq: true, sloppy: true*/
-/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,gestionVie,ko,shapes,themeSong,handleFileLoad,round2*/
+/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,gestionVie,ko,shapes,themeSong,handleFileLoad,round2,creationHadoken1,creationHadoken2*/
 
 var stage,
     imgPerso1 = new Image(),
     perso1,
     imgPerso2 = new Image(),
     perso2,
-	imgHadoken = new Image(),
-	hadoken,
+    imgHadoken = new Image(),
+    hadoken1,
+    hadoken2,
     clavier1 = {
         haut: 0,
         gauche: 0,
@@ -16,7 +17,7 @@ var stage,
         U: 0,
         I: 0,
         O: 0,
-		P: 0
+        P: 0
     },
     clavier2 = {
         gauche: 0,
@@ -31,7 +32,8 @@ var stage,
     bmpViePerso2,
     shape1,
     shape2,
-    round = 0;
+    isThereHadoken1 = 0,
+    isThereHadoken2 = 0;
 
 window.onkeydown = keyPress;
 window.onkeyup = keyRelease;
@@ -63,15 +65,17 @@ function keyPress(e) {
         clavier1.O = 1;
         perso1.gotoAndPlay("blockPerso1");
     }
-	if (e.keyCode == 80) {
-		clavier1.P = 1;
-		hadoken.x = perso1.x + 25;
-		hadoken.y = perso1.y - 45;
-		hadoken.scaleX = 1.3;
-		hadoken.scaleY = 1.3;
-		stage.addChild(hadoken);
-		hadoken.gotoAndPlay("standHadoken");
-	}
+    if (e.keyCode == 80) {
+        if (isThereHadoken1 == 0) {
+            hadoken1.x = perso1.x + 25;
+            hadoken1.y = perso1.y - 45;
+            hadoken1.scaleX = 1.3;
+            hadoken1.scaleY = 1.3;
+            stage.addChild(hadoken1);
+            isThereHadoken1 = 1;
+            hadoken1.gotoAndPlay("standHadoken1");
+        }
+    }
 
     // PERSO 2
     if (e.keyCode == 37) {
@@ -97,6 +101,17 @@ function keyPress(e) {
     if (e.keyCode == 99) {
         clavier2.numPad3 = 1;
         perso2.gotoAndPlay("blockPerso2");
+    }
+    if (e.keyCode == 100) {
+        if (isThereHadoken2 == 0) {
+            hadoken2.x = perso2.x - 25;
+            hadoken2.y = perso2.y - 45;
+            hadoken2.scaleX = -1.3;
+            hadoken2.scaleY = 1.3;
+            stage.addChild(hadoken2);
+            isThereHadoken2 = 1;
+            hadoken2.gotoAndPlay("standHadoken2");
+        }
     }
 }
 
@@ -185,13 +200,14 @@ function init() {
     imgPerso2.src = "img/ryu.png";
     imgPerso2.onload = creationPerso2();
     stage.update();
-	
-	// HADOKEN
-	imgHadoken.src = "img/hadoken.png";
-	imgHadoken.onload = creationHadoken();
-	stage.update();
-    
-	// Fonction génératrice de la barre de vie
+
+    // HADOKEN
+    imgHadoken.src = "img/hadoken.png";
+    imgHadoken.onload = creationHadoken1();
+    imgHadoken.onload = creationHadoken2();
+    stage.update();
+
+    // Fonction génératrice de la barre de vie
     shapes();
 
     // Fond de la barre de vie (en rouge)
@@ -286,26 +302,42 @@ function creationPerso2() {
     stage.update();
 }
 
-function creationHadoken() {
-	var ss = new createjs.SpriteSheet({
-		images:[imgHadoken],
-		frames: {
-			width: 32,
-			height: 28,
-			regX: 16,
-			regY: 14
-		},
-		animations: {
-			standHadoken: [0,1, true, 0.3],
-			burstHadoken: [2,5, false, 0.15]
-		}
-	});
-	
-	hadoken = new createjs.Sprite(ss, "standHadoken");
-	perso1.scaleX;
-	perso2.scaleY;
-	
-	stage.update();
+function creationHadoken1() {
+    var ss = new createjs.SpriteSheet({
+        images: [imgHadoken],
+        frames: {
+            width: 32,
+            height: 28,
+            regX: 16,
+            regY: 14
+        },
+        animations: {
+            standHadoken1: [0, 1, true, 0.3],
+            burstHadoken1: [2, 5, false, 0.15]
+        }
+    });
+
+    hadoken1 = new createjs.Sprite(ss, "standHadoken1");
+    stage.update();
+}
+
+function creationHadoken2() {
+    var ss = new createjs.SpriteSheet({
+        images: [imgHadoken],
+        frames: {
+            width: 32,
+            height: 28,
+            regX: 16,
+            regY: 14
+        },
+        animations: {
+            standHadoken2: [0, 1, true, 0.3],
+            burstHadoken2: [2, 5, false, 0.15]
+        }
+    });
+
+    hadoken2 = new createjs.Sprite(ss, "standHadoken2");
+    stage.update();
 }
 
 function shapes() {
@@ -357,10 +389,6 @@ function deplacement() {
     if (perso2.x >= 766) {
         perso2.x = 766;
     }
-    if (Math.abs(perso1.x - perso2.x) <= 67) {
-        perso2.x = perso1.x + 67;
-        perso1.x = perso2.x - 67;
-    }
 
     //Se baisser
     if (clavier1.bas == 1) {
@@ -381,9 +409,33 @@ function deplacement() {
     if (clavier2.bas == 0) {
         perso2.y = stage.canvas.height - 110;
     }
-	if (clavier1.P == 1) {
-	hadoken.x = hadoken.x + 8;
-	}
+
+
+    // Déplacement des Hadoken
+    //Hadoken 1
+    if (hadoken1.x - perso2.x < 30) {
+        hadoken1.x = hadoken1.x + 8;
+    }
+    if (hadoken1.x - perso2.x > 30) {
+        hadoken1.x = hadoken1.x + 8;
+    }
+    if (hadoken1.x > 800) {
+        stage.removeChild(hadoken1);
+        isThereHadoken1 = 0;
+        stage.update();
+    }
+    //Hadoken 2
+    if (hadoken2.x - perso1 > 30) {
+        hadoken2.x = hadoken2.x - 8;
+    }
+    if (hadoken2.x - perso2.x < 30) {
+        hadoken2.x = hadoken2.x - 8;
+    }
+    if (hadoken2.x < 0) {
+        stage.removeChild(hadoken2);
+        isThereHadoken2 = 0;
+        stage.update();
+    }
 }
 
 function tick() {
@@ -432,14 +484,22 @@ function gestionVie() {
         perso1.gotoAndPlay("hitPerso1");
         stage.update();
     }
-	// HADOKEN
-	if (clavier1.P == 1 && Math.abs(hadoken.x - perso2.x) < 80 && Math.abs(hadoken.y - perso.y) == 45) {
-	
-	}
+    // HADOKEN
+    if (Math.abs(hadoken1.x - perso2.x) < 30 && Math.abs(hadoken1.y - perso2.y) == 45) {
+        shape2.scaleX = shape2.scaleX + 0.1;
+        perso2.gotoAndPlay("hitPerso2");
+        hadoken1.x = 8000;
+        stage.update();
+    }
+    if (Math.abs(hadoken2.x - perso1.x) < 30 && Math.abs(hadoken2.y - perso1.y) == 45) {
+        shape1.scaleX = shape1.scaleX - 0.1;
+        perso1.gotoAndPlay("hitPerso1");
+        hadoken2.x = -8000;
+        stage.update();
+    }
 }
 
 function ko() {
-    round = 1;
     clavier1.gauche = 0;
     clavier1.droite = 0;
     clavier2.gauche = 0;
@@ -465,13 +525,6 @@ function round2() {
     /*stage.removeAllChildren();
     window.onload = init;
     location.reload(); */
-}
-
-function hadoken() {
-/*	if (clavier1.P = 1) {
-		hadoken.x = hadoken.x + 1;
-		stage.update();
-	} */
 }
 
 window.onload = init;
