@@ -1,18 +1,22 @@
 /*jslint eqeq: true, sloppy: true*/
-/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,gestionVie,ko,shapes*/
+/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,gestionVie,ko,shapes,themeSong,handleFileLoad,round2*/
 
 var stage,
     imgPerso1 = new Image(),
     perso1,
     imgPerso2 = new Image(),
     perso2,
+	imgHadoken = new Image(),
+	hadoken,
     clavier1 = {
+        haut: 0,
         gauche: 0,
         droite: 0,
+        bas: 0,
         U: 0,
         I: 0,
         O: 0,
-        bas: 0
+		P: 0
     },
     clavier2 = {
         gauche: 0,
@@ -26,7 +30,8 @@ var stage,
     bmpViePerso1,
     bmpViePerso2,
     shape1,
-    shape2;
+    shape2,
+    round = 0;
 
 window.onkeydown = keyPress;
 window.onkeyup = keyRelease;
@@ -37,6 +42,10 @@ function keyPress(e) {
     if (e.keyCode == 81) {
         clavier1.gauche = 1;
         perso1.gotoAndPlay("walkPerso1");
+    }
+    if (e.keyCode == 83) {
+        clavier1.bas = 1;
+        perso1.gotoAndPlay("downPerso1");
     }
     if (e.keyCode == 68) {
         clavier1.droite = 1;
@@ -54,11 +63,24 @@ function keyPress(e) {
         clavier1.O = 1;
         perso1.gotoAndPlay("blockPerso1");
     }
+	if (e.keyCode == 80) {
+		clavier1.P = 1;
+		hadoken.x = perso1.x + 25;
+		hadoken.y = perso1.y - 45;
+		hadoken.scaleX = 1.3;
+		hadoken.scaleY = 1.3;
+		stage.addChild(hadoken);
+		hadoken.gotoAndPlay("standHadoken");
+	}
 
     // PERSO 2
     if (e.keyCode == 37) {
         clavier2.gauche = 1;
         perso2.gotoAndPlay("walkPerso2");
+    }
+    if (e.keyCode == 40) {
+        clavier2.bas = 1;
+        perso2.gotoAndPlay("downPerso2");
     }
     if (e.keyCode == 39) {
         clavier2.droite = 1;
@@ -89,6 +111,10 @@ function keyRelease(e) {
         clavier1.droite = 0;
         perso1.gotoAndPlay("standPerso1");
     }
+    if (e.keyCode == 83) {
+        clavier1.bas = 0;
+        perso1.gotoAndPlay("standPerso1");
+    }
     if (e.keyCode == 85) {
         clavier1.U = 0;
         perso1.gotoAndPlay("standPerso1");
@@ -115,6 +141,10 @@ function keyRelease(e) {
         clavier2.haut = 0;
         perso2.gotoAndPlay("standPerso2");
     }
+    if (e.keyCode == 40) {
+        clavier2.bas = 0;
+        perso2.gotoAndPlay("standPerso2");
+    }
     if (e.keyCode == 97) {
         clavier2.numPad1 = 0;
         perso2.gotoAndPlay("standPerso2");
@@ -132,6 +162,8 @@ function keyRelease(e) {
 
 function init() {
     stage = new createjs.Stage('canvas');
+
+    // themeSong();
 
     // Creation de l'arène
     bg = new createjs.Bitmap("img/arena.png");
@@ -153,8 +185,13 @@ function init() {
     imgPerso2.src = "img/ryu.png";
     imgPerso2.onload = creationPerso2();
     stage.update();
-
-    // Fonction génératrice de la barre de vie
+	
+	// HADOKEN
+	imgHadoken.src = "img/hadoken.png";
+	imgHadoken.onload = creationHadoken();
+	stage.update();
+    
+	// Fonction génératrice de la barre de vie
     shapes();
 
     // Fond de la barre de vie (en rouge)
@@ -177,7 +214,6 @@ function init() {
 
     stage.addChild(bmpViePerso1);
     stage.addChild(bmpViePerso2);
-
 
     stage.update();
 
@@ -203,7 +239,8 @@ function creationPerso1() {
             kick1Perso1: [13, 15, false, 0.15],
             blockPerso1: [16, 16, false, 0.15],
             hitPerso1: [20, 23, false, 0.25],
-            koPerso1: [25, 27, false, 0.10]
+            koPerso1: [25, 27, false, 0.10],
+            downPerso1: [27, 27, false, 0.10]
         }
     });
 
@@ -233,8 +270,8 @@ function creationPerso2() {
             kick1Perso2: [13, 15, false, 0.15],
             blockPerso2: [16, 16, false, 0.15],
             hitPerso2: [20, 23, false, 0.15],
-            koPerso2: [25, 27, false, 0.10]
-
+            koPerso2: [25, 27, false, 0.10],
+            downPerso2: [27, 27, false, 0.10]
         }
     });
 
@@ -247,6 +284,28 @@ function creationPerso2() {
     perso2.gotoAndPlay("standPerso2");
     stage.addChild(perso2);
     stage.update();
+}
+
+function creationHadoken() {
+	var ss = new createjs.SpriteSheet({
+		images:[imgHadoken],
+		frames: {
+			width: 32,
+			height: 28,
+			regX: 16,
+			regY: 14
+		},
+		animations: {
+			standHadoken: [0,1, true, 0.3],
+			burstHadoken: [2,5, false, 0.15]
+		}
+	});
+	
+	hadoken = new createjs.Sprite(ss, "standHadoken");
+	perso1.scaleX;
+	perso2.scaleY;
+	
+	stage.update();
 }
 
 function shapes() {
@@ -277,6 +336,7 @@ function shapes() {
 }
 
 function deplacement() {
+
     if (clavier1.gauche == 1) {
         perso1.x = perso1.x - 3;
     }
@@ -289,6 +349,41 @@ function deplacement() {
     if (clavier2.droite == 1) {
         perso2.x = perso2.x + 3;
     }
+
+    // Gestion de collision au bord de la map
+    if (perso1.x <= 30) {
+        perso1.x = 30;
+    }
+    if (perso2.x >= 766) {
+        perso2.x = 766;
+    }
+    if (Math.abs(perso1.x - perso2.x) <= 67) {
+        perso2.x = perso1.x + 67;
+        perso1.x = perso2.x - 67;
+    }
+
+    //Se baisser
+    if (clavier1.bas == 1) {
+        perso1.y = stage.canvas.height - 40;
+        clavier1.droite = 0;
+        clavier1.gauche = 0;
+        perso1.gotoAndPlay("downPerso1");
+    }
+    if (clavier1.bas == 0) {
+        perso1.y = stage.canvas.height - 110;
+    }
+    if (clavier2.bas == 1) {
+        perso2.y = stage.canvas.height - 40;
+        clavier2.gauche = 0;
+        clavier2.droite = 0;
+        perso2.gotoAndPlay("downPerso2");
+    }
+    if (clavier2.bas == 0) {
+        perso2.y = stage.canvas.height - 110;
+    }
+	if (clavier1.P == 1) {
+	hadoken.x = hadoken.x + 8;
+	}
 }
 
 function tick() {
@@ -300,55 +395,83 @@ function tick() {
     if (shape1.scaleX <= 0) {
         ko();
         perso1.gotoAndPlay("koPerso1");
+        round2();
     }
     if (shape2.scaleX >= 0) {
         ko();
         perso2.gotoAndPlay("koPerso2");
+        round2();
     }
-
     stage.update();
 }
 
 function gestionVie() {
 
-    if (clavier1.U == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier2.numPad3 == 0) {
+    if (clavier1.U == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier2.numPad3 == 0 && Math.abs(perso1.y - perso2.y) == 0) {
         shape2.scaleX = shape2.scaleX + 0.05;
         perso2.x = perso2.x + 20;
         perso2.gotoAndPlay("hitPerso2");
         stage.update();
     }
-    if (clavier1.I == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier2.numPad3 == 0) {
+    if (clavier1.I == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier2.numPad3 == 0 && Math.abs(perso1.y - perso2.y) == 0) {
         shape2.scaleX = shape2.scaleX + 0.1;
         perso2.x = perso2.x + 40;
         perso2.gotoAndPlay("hitPerso2");
         stage.update();
-
     }
-
-    if (clavier2.numPad1 == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier1.O == 0) {
+    if (clavier2.numPad1 == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier1.O == 0 && Math.abs(perso1.y - perso2.y) == 0) {
 
         shape1.scaleX = shape1.scaleX - 0.05;
         perso1.x = perso1.x - 20;
         perso1.gotoAndPlay("hitPerso1");
         stage.update();
-
     }
-    if (clavier2.numPad2 == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier1.O == 0) {
+    if (clavier2.numPad2 == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier1.O == 0 && Math.abs(perso1.y - perso2.y) == 0) {
         shape1.scaleX = shape1.scaleX - 0.1;
         perso1.x = perso1.x - 40;
         perso1.gotoAndPlay("hitPerso1");
         stage.update();
-
     }
+	// HADOKEN
+	if (clavier1.P == 1 && Math.abs(hadoken.x - perso2.x) < 80 && Math.abs(hadoken.y - perso.y) == 45) {
+	
+	}
 }
 
 function ko() {
+    round = 1;
     clavier1.gauche = 0;
     clavier1.droite = 0;
     clavier2.gauche = 0;
     clavier2.droite = 0;
     window.onkeydown = null;
     window.onkeyup = null;
+}
+
+function themeSong() {
+    createjs.Sound.alternateExtensions = ["mp3"];
+    createjs.Sound.addEventListener("fileload", handleFileLoad);
+    createjs.Sound.registerSound({
+        id: "themeSound",
+        src: "theme.mp3"
+    });
+
+    function handleFileLoad(event) {
+        createjs.Sound.play(event.src);
+    }
+}
+
+function round2() {
+    /*stage.removeAllChildren();
+    window.onload = init;
+    location.reload(); */
+}
+
+function hadoken() {
+/*	if (clavier1.P = 1) {
+		hadoken.x = hadoken.x + 1;
+		stage.update();
+	} */
 }
 
 window.onload = init;
