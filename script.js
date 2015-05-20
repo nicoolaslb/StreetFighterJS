@@ -527,4 +527,5 @@ function round2() {
     location.reload(); */
 }
 
+
 window.onload = init;
