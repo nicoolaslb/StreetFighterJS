@@ -1,5 +1,5 @@
 /*jslint eqeq: true, sloppy: true*/
-/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,gestionVie,ko,shapes,themeSong,handleFileLoad,round2,creationHadoken1,creationHadoken2*/
+/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,gestionVie,ko,shapes,themeSong,handleFileLoad,creationHadoken1,creationHadoken2*/
 
 var stage,
     imgPerso1 = new Image(),
@@ -33,7 +33,9 @@ var stage,
     shape1,
     shape2,
     isThereHadoken1 = 0,
-    isThereHadoken2 = 0;
+    isThereHadoken2 = 0,
+    bmpKenWins,
+    bmpRyuWins;
 
 window.onkeydown = keyPress;
 window.onkeyup = keyRelease;
@@ -66,7 +68,7 @@ function keyPress(e) {
         perso1.gotoAndPlay("blockPerso1");
     }
     if (e.keyCode == 80) {
-        if (isThereHadoken1 == 0) {
+        if (isThereHadoken1 === 0) {
             hadoken1.x = perso1.x + 25;
             hadoken1.y = perso1.y - 45;
             hadoken1.scaleX = 1.3;
@@ -103,7 +105,7 @@ function keyPress(e) {
         perso2.gotoAndPlay("blockPerso2");
     }
     if (e.keyCode == 100) {
-        if (isThereHadoken2 == 0) {
+        if (isThereHadoken2 === 0) {
             hadoken2.x = perso2.x - 25;
             hadoken2.y = perso2.y - 45;
             hadoken2.scaleX = -1.3;
@@ -178,7 +180,8 @@ function keyRelease(e) {
 function init() {
     stage = new createjs.Stage('canvas');
 
-    // themeSong();
+    // Nous lançons la musique du jeu
+    themeSong();
 
     // Creation de l'arène
     bg = new createjs.Bitmap("img/arena.png");
@@ -231,6 +234,25 @@ function init() {
     stage.addChild(bmpViePerso1);
     stage.addChild(bmpViePerso2);
 
+    // Images du message du vainqueur
+    bmpKenWins = new createjs.Bitmap("img/KENwins.png");
+    bmpKenWins.regX = 150;
+    bmpKenWins.regX = 100;
+    bmpKenWins.x = stage.canvas.width / 2 - 50;
+    bmpKenWins.y = stage.canvas.height / 2 - 100;
+    bmpKenWins.scaleX = 1.2;
+    bmpKenWins.scaleY = 1.2;
+    bmpKenWins.alpha = 0;
+
+    bmpRyuWins = new createjs.Bitmap("img/RYUwins.png");
+    bmpRyuWins.regX = 150;
+    bmpRyuWins.regX = 100;
+    bmpRyuWins.x = stage.canvas.width / 2 - 50;
+    bmpRyuWins.y = stage.canvas.height / 2 - 100;
+    bmpRyuWins.scaleX = 1.2;
+    bmpRyuWins.scaleY = 1.2;
+    bmpRyuWins.alpha = 0;
+
     stage.update();
 
     // Ticker
@@ -249,14 +271,14 @@ function creationPerso1() {
             regY: 50
         },
         animations: {
-            standPerso1: [0, 3, true, 0.15],
-            walkPerso1: [4, 8, true, 0.15],
-            punch1Perso1: [10, 12, false, 0.25],
-            kick1Perso1: [13, 15, false, 0.15],
-            blockPerso1: [16, 16, false, 0.15],
-            hitPerso1: [20, 23, false, 0.25],
-            koPerso1: [25, 27, false, 0.10],
-            downPerso1: [27, 27, false, 0.10]
+            standPerso1: [0, 3, true, 0.1],
+            walkPerso1: [4, 8, true, 0.1],
+            punch1Perso1: [10, 12, false, 0.15],
+            kick1Perso1: [13, 15, false, 0.1],
+            blockPerso1: [16, 16, false, 0.05],
+            hitPerso1: [20, 23, false, 0.2],
+            koPerso1: [25, 27, false, 0.05],
+            downPerso1: [27, 27, false, 0.05]
         }
     });
 
@@ -280,14 +302,14 @@ function creationPerso2() {
             regY: 50
         },
         animations: {
-            standPerso2: [0, 3, true, 0.15],
-            walkPerso2: [4, 8, true, 0.15],
-            punch1Perso2: [10, 12, false, 0.25],
-            kick1Perso2: [13, 15, false, 0.15],
-            blockPerso2: [16, 16, false, 0.15],
-            hitPerso2: [20, 23, false, 0.15],
-            koPerso2: [25, 27, false, 0.10],
-            downPerso2: [27, 27, false, 0.10]
+            standPerso2: [0, 3, true, 0.1],
+            walkPerso2: [4, 8, true, 0.1],
+            punch1Perso2: [10, 12, false, 0.15],
+            kick1Perso2: [13, 15, false, 0.1],
+            blockPerso2: [16, 16, false, 0.05],
+            hitPerso2: [20, 23, false, 0.1],
+            koPerso2: [25, 27, false, 0.05],
+            downPerso2: [27, 27, false, 0.05]
         }
     });
 
@@ -342,6 +364,8 @@ function creationHadoken2() {
 
 function shapes() {
 
+    // Barre de vie jaune des deux personnages
+
     shape1 = new createjs.Shape();
     shape1.graphics.beginFill("#FFCC00").drawRect(0, 0, 238, 16);
     shape1.x = stage.canvas.width / 2 - 52;
@@ -369,6 +393,7 @@ function shapes() {
 
 function deplacement() {
 
+    // Déplacement des personnages
     if (clavier1.gauche == 1) {
         perso1.x = perso1.x - 3;
     }
@@ -397,7 +422,7 @@ function deplacement() {
         clavier1.gauche = 0;
         perso1.gotoAndPlay("downPerso1");
     }
-    if (clavier1.bas == 0) {
+    if (clavier1.bas === 0) {
         perso1.y = stage.canvas.height - 110;
     }
     if (clavier2.bas == 1) {
@@ -406,12 +431,13 @@ function deplacement() {
         clavier2.droite = 0;
         perso2.gotoAndPlay("downPerso2");
     }
-    if (clavier2.bas == 0) {
+    if (clavier2.bas === 0) {
         perso2.y = stage.canvas.height - 110;
     }
 
 
     // Déplacement des Hadoken
+
     //Hadoken 1
     if (hadoken1.x - perso2.x < 30) {
         hadoken1.x = hadoken1.x + 8;
@@ -440,50 +466,58 @@ function deplacement() {
 
 function tick() {
 
+    // Les fonctions incluses dans le Ticker
     deplacement();
     gestionVie();
 
     // Quand un personnage n'a plus de vie, on arrête le jeu
     if (shape1.scaleX <= 0) {
+        stage.removeChild(shape1);
         ko();
         perso1.gotoAndPlay("koPerso1");
-        round2();
+        stage.addChild(bmpRyuWins);
+        bmpRyuWins.alpha = bmpRyuWins.alpha + 0.05;
     }
     if (shape2.scaleX >= 0) {
+        stage.removeChild(shape2);
         ko();
         perso2.gotoAndPlay("koPerso2");
-        round2();
+        stage.addChild(bmpKenWins);
+        bmpKenWins.alpha = bmpKenWins.alpha + 0.05;
     }
     stage.update();
 }
 
 function gestionVie() {
 
-    if (clavier1.U == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier2.numPad3 == 0 && Math.abs(perso1.y - perso2.y) == 0) {
+    // Attaques du perso 1 (coup de poing et pied)
+    if (clavier1.U == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier2.numPad3 === 0 && Math.abs(perso1.y - perso2.y) === 0) {
         shape2.scaleX = shape2.scaleX + 0.05;
         perso2.x = perso2.x + 20;
         perso2.gotoAndPlay("hitPerso2");
         stage.update();
     }
-    if (clavier1.I == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier2.numPad3 == 0 && Math.abs(perso1.y - perso2.y) == 0) {
+    if (clavier1.I == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier2.numPad3 === 0 && Math.abs(perso1.y - perso2.y) === 0) {
         shape2.scaleX = shape2.scaleX + 0.1;
         perso2.x = perso2.x + 40;
         perso2.gotoAndPlay("hitPerso2");
         stage.update();
     }
-    if (clavier2.numPad1 == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier1.O == 0 && Math.abs(perso1.y - perso2.y) == 0) {
 
+    // Attaques du perso 2 (coup de poing et pied)
+    if (clavier2.numPad1 == 1 && Math.abs(perso2.x - perso1.x) < 80 && clavier1.O === 0 && Math.abs(perso1.y - perso2.y) === 0) {
         shape1.scaleX = shape1.scaleX - 0.05;
         perso1.x = perso1.x - 20;
         perso1.gotoAndPlay("hitPerso1");
         stage.update();
     }
-    if (clavier2.numPad2 == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier1.O == 0 && Math.abs(perso1.y - perso2.y) == 0) {
+    if (clavier2.numPad2 == 1 && Math.abs(perso2.x - perso1.x) < 95 && clavier1.O === 0 && Math.abs(perso1.y - perso2.y) === 0) {
         shape1.scaleX = shape1.scaleX - 0.1;
         perso1.x = perso1.x - 40;
         perso1.gotoAndPlay("hitPerso1");
         stage.update();
     }
+
     // HADOKEN
     if (Math.abs(hadoken1.x - perso2.x) < 30 && Math.abs(hadoken1.y - perso2.y) == 45) {
         shape2.scaleX = shape2.scaleX + 0.1;
@@ -500,6 +534,7 @@ function gestionVie() {
 }
 
 function ko() {
+    // Si la partie s'arrête, on empêche aux joueurs de bouger
     clavier1.gauche = 0;
     clavier1.droite = 0;
     clavier2.gauche = 0;
@@ -520,12 +555,5 @@ function themeSong() {
         createjs.Sound.play(event.src);
     }
 }
-
-function round2() {
-    /*stage.removeAllChildren();
-    window.onload = init;
-    location.reload(); */
-}
-
 
 window.onload = init;
