@@ -34,3 +34,7 @@ footer {
 a {
     color: #4B4B4B;
 }
+
+div#preload {
+    display: none;
+}

@@ -1,31 +1,30 @@
 /*jslint eqeq: true, sloppy: true*/
-/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,gestionVie,ko,shapes,themeSong,handleFileLoad,creationHadoken1,creationHadoken2*/
+/*global createjs, keyPress, keyRelease,creationPerso1,creationPerso2,tick,gestionVie,ko,shapes,themeSong,handleFileLoad,creationHadoken1,creationHadoken2,handleComplete*/
 
 var stage,
     imgPerso1 = new Image(),
     perso1,
     imgPerso2 = new Image(),
     perso2,
-    imgHadoken = new Image(),
+    imgHadoken1 = new Image(),
+    imgHadoken2 = new Image(),
     hadoken1,
     hadoken2,
     clavier1 = {
-        haut: 0,
         gauche: 0,
         droite: 0,
         bas: 0,
         U: 0,
         I: 0,
-        O: 0,
-        P: 0
+        O: 0
     },
     clavier2 = {
         gauche: 0,
         droite: 0,
+        bas: 0,
         numPad1: 0,
         numPad2: 0,
-        numPad3: 0,
-        bas: 0
+        numPad3: 0
     },
     bg,
     bmpViePerso1,
@@ -181,7 +180,9 @@ function init() {
     stage = new createjs.Stage('canvas');
 
     // Nous lançons la musique du jeu
-    themeSong();
+    //themeSong();
+
+
 
     // Creation de l'arène
     bg = new createjs.Bitmap("img/arena.png");
@@ -195,19 +196,16 @@ function init() {
     stage.update();
 
     // On crée le personnage 1
-    imgPerso1.src = "img/ken.png";
-    imgPerso1.onload = creationPerso1();
+    creationPerso1();
     stage.update();
 
     // Idem pour le personnage 2
-    imgPerso2.src = "img/ryu.png";
-    imgPerso2.onload = creationPerso2();
+    creationPerso2();
     stage.update();
 
     // HADOKEN
-    imgHadoken.src = "img/hadoken.png";
-    imgHadoken.onload = creationHadoken1();
-    imgHadoken.onload = creationHadoken2();
+    creationHadoken1();
+    creationHadoken2();
     stage.update();
 
     // Fonction génératrice de la barre de vie
@@ -262,6 +260,7 @@ function init() {
 }
 
 function creationPerso1() {
+    imgPerso1.src = "img/ken.png";
     var ss = new createjs.SpriteSheet({
         images: [imgPerso1],
         frames: {
@@ -293,6 +292,7 @@ function creationPerso1() {
 }
 
 function creationPerso2() {
+    imgPerso2.src = "img/ryu.png";
     var ss = new createjs.SpriteSheet({
         images: [imgPerso2],
         frames: {
@@ -325,8 +325,9 @@ function creationPerso2() {
 }
 
 function creationHadoken1() {
+    imgHadoken1.src = "img/hadoken.png";
     var ss = new createjs.SpriteSheet({
-        images: [imgHadoken],
+        images: [imgHadoken1],
         frames: {
             width: 32,
             height: 28,
@@ -344,8 +345,10 @@ function creationHadoken1() {
 }
 
 function creationHadoken2() {
+    imgHadoken2.src = "img/hadoken.png";
+
     var ss = new createjs.SpriteSheet({
-        images: [imgHadoken],
+        images: [imgHadoken2],
         frames: {
             width: 32,
             height: 28,
