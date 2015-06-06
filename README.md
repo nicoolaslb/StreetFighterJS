@@ -16,3 +16,4 @@ Lorsque le projet sera fini, il sera mis en Open Source, et ainsi modifiable par
 - Ajouter animations de KO *DONE*
 - Ajouter musique *DONE*
 - Gestion de scores
+- Regler compatibilité navigateurs
