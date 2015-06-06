@@ -6,9 +6,13 @@ Ce projet a un but scolaire uniquement.
 Pour faire marcher Orion, ouvrez le fichier `index.html` dans le dossier orion.<br>
 Une connection internet est nécéssaire pour charger EaselJS et ainsi faire marcher le jeu.
 #### Comment contribuer à `Orion` ?
-Pour l'instant, il n'est pas possible de générer des `Pull requests`. <br>
-Le projet s'inscrivant dans un cadre scolaire, il est uniquement possible aux personnes extérieures au groupe de récupérer le code ou de rapporter des erreurs. <br>
-Lorsque le projet sera fini, il sera mis en Open Source, et ainsi modifiable par toute la communauté de GitHub :).
+Il est désormais possible de contribuer à Orion à l'aide des `Pull requests`. Pour ce faire :<br>
+
+- Forkez le projet à votre page Github
+- Créez votre propre branche sur Git avec git checkout -b ma_branche
+- Faites vos commits
+- Envoyez une `Pull Request` sur Github
+
 #### Prochains ajouts
 - Gestion des collisions au bord de la map *DONE*
 - Fixer le problème de la barre de vie *DONE*
