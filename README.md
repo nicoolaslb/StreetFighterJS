@@ -10,9 +10,9 @@ Pour l'instant, il n'est pas possible de générer des `Pull requests`. <br>
 Le projet s'inscrivant dans un cadre scolaire, il est uniquement possible aux personnes extérieures au groupe de récupérer le code ou de rapporter des erreurs. <br>
 Lorsque le projet sera fini, il sera mis en Open Source, et ainsi modifiable par toute la communauté de GitHub :).
 #### Prochains ajouts
-- Gestion des collisions
+- Gestion des collisions au bord de la map *DONE*
 - Fixer le problème de la barre de vie *DONE*
 - Ajouter menu
 - Ajouter animations de KO *DONE*
-- Ajouter musique avec "FIGHT" et "KO"
+- Ajouter musique *DONE*
 - Gestion de scores
