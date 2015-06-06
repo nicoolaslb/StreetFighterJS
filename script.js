@@ -67,7 +67,7 @@ function keyPress(e) {
         perso1.gotoAndPlay("blockPerso1");
     }
     if (e.keyCode == 80) {
-        if (isThereHadoken1 === 0) {
+        if (isThereHadoken1 === 0 && clavier1.O == 0) {
             hadoken1.x = perso1.x + 25;
             hadoken1.y = perso1.y - 45;
             hadoken1.scaleX = 1.3;
@@ -104,7 +104,7 @@ function keyPress(e) {
         perso2.gotoAndPlay("blockPerso2");
     }
     if (e.keyCode == 100) {
-        if (isThereHadoken2 === 0) {
+        if (isThereHadoken2 === 0 && clavier2.numPad3 == 0) {
             hadoken2.x = perso2.x - 25;
             hadoken2.y = perso2.y - 45;
             hadoken2.scaleX = -1.3;
@@ -180,9 +180,7 @@ function init() {
     stage = new createjs.Stage('canvas');
 
     // Nous lançons la musique du jeu
-    //themeSong();
-
-
+    themeSong();
 
     // Creation de l'arène
     bg = new createjs.Bitmap("img/arena.png");
@@ -196,14 +194,20 @@ function init() {
     stage.update();
 
     // On crée le personnage 1
-    creationPerso1();
+    imgPerso1.src = "img/ken.png";
+    imgPerso1.onload = creationPerso1;
     stage.update();
 
     // Idem pour le personnage 2
-    creationPerso2();
+    imgPerso2.src = "img/ryu.png";
+    imgPerso2.onload = creationPerso2;
     stage.update();
 
     // HADOKEN
+    imgHadoken1.src = "img/hadoken.png";
+    imgHadoken1.onload = creationHadoken1;
+    imgHadoken2.src = "img/hadoken.png";
+    imgHadoken2.onload = creationHadoken2;
     creationHadoken1();
     creationHadoken2();
     stage.update();
@@ -260,7 +264,6 @@ function init() {
 }
 
 function creationPerso1() {
-    imgPerso1.src = "img/ken.png";
     var ss = new createjs.SpriteSheet({
         images: [imgPerso1],
         frames: {
@@ -292,7 +295,6 @@ function creationPerso1() {
 }
 
 function creationPerso2() {
-    imgPerso2.src = "img/ryu.png";
     var ss = new createjs.SpriteSheet({
         images: [imgPerso2],
         frames: {
@@ -325,7 +327,6 @@ function creationPerso2() {
 }
 
 function creationHadoken1() {
-    imgHadoken1.src = "img/hadoken.png";
     var ss = new createjs.SpriteSheet({
         images: [imgHadoken1],
         frames: {

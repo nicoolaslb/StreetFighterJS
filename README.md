@@ -13,6 +13,6 @@ Lorsque le projet sera fini, il sera mis en Open Source, et ainsi modifiable par
 - Gestion des collisions
 - Fixer le problème de la barre de vie *DONE*
 - Ajouter menu
-- Ajouter animations de KO
+- Ajouter animations de KO *DONE*
 - Ajouter musique avec "FIGHT" et "KO"
 - Gestion de scores
