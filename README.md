@@ -12,10 +12,10 @@ Il est désormais possible de contribuer à StreetFighterJS à l'aide des `Pull 
 - Envoyez une `Pull Request` sur Github
 
 #### Prochains ajouts
-- Gestion des collisions au bord de la map *DONE*
-- Fixer le problème de la barre de vie *DONE*
-- Ajouter menu
-- Ajouter animations de KO *DONE*
-- Ajouter musique *DONE*
+- Gestion des collisions au bord de la map **DONE**
+- Fixer le problème de la barre de vie **DONE**
+- Ajouter menu 
+- Ajouter animations de KO **DONE**
+- Ajouter musique **DONE**
 - Gestion de scores
-- Regler compatibilité navigateurs
+- Regler compatibilité navigateurs **DONE**
