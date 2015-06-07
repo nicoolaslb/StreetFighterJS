@@ -35,6 +35,8 @@ a {
     color: #4B4B4B;
 }
 
-div#preload {
-    display: none;
+.badge {
+    float: right;
+    margin: auto;
+    margin-top: 2%;
 }
