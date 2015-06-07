@@ -1,12 +1,10 @@
-## codename `ORION`
-#### Qu'est ce qu' `Orion` ?
-Orion est une réplique du célèbre jeu Street Fighter réalisé avec la librairie EaselJS de la suite CodeJS. <br>
-Ce projet a un but scolaire uniquement.
-#### Comment faire marcher `Orion` ?
-Pour faire marcher Orion, ouvrez le fichier `index.html` dans le dossier orion.<br>
-Une connection internet est nécéssaire pour charger EaselJS et ainsi faire marcher le jeu.
-#### Comment contribuer à `Orion` ?
-Il est désormais possible de contribuer à Orion à l'aide des `Pull requests`. Pour ce faire :<br>
+## StreetFighterJS
+#### Qu'est ce que StreetFighterJS ?
+StreetFighrerJS est un jeu sur navigateur, une réplique du célèbre Street Fighter réalisé avec la librairie EaselJS de la suite CreateJS. <br>
+#### Comment faire marcher StreetFighterJS ?
+Pour lancer le jeu, ouvrez le fichier `index.html` dans le dossier racine.<br>
+#### Comment contribuer à StreetFighterJS ?
+Il est désormais possible de contribuer à StreetFighterJS à l'aide des `Pull requests`. Pour ce faire :<br>
 
 - Forkez le projet à votre page Github
 - Créez votre propre branche sur Git avec git checkout -b ma_branche
